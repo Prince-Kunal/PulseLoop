@@ -114,7 +114,7 @@ export default async function BloodBankDashboard() {
               <h3 className="text-lg font-bold text-foreground">Live Blood Inventory</h3>
               <p className="text-muted-foreground text-xs mt-1">Stock status of available blood units categorized by type.</p>
             </div>
-            <button className="px-3 py-1.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-xs font-semibold flex items-center transition-all cursor-pointer shadow-sm shadow-primary/10">
+            <button className="px-3 py-1.5 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg text-xs font-semibold flex items-center transition-all cursor-pointer shadow-sm shadow-primary/10">
               <Plus className="h-3.5 w-3.5 mr-1" />
               Update Stock
             </button>

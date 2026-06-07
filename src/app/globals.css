@@ -1,65 +1,65 @@
 @import "tailwindcss";
 
 :root {
-  --background: 270 20% 99%; /* Premium soft white with a lavender tint */
-  --foreground: 270 30% 15%; /* Deep Plum/Charcoal */
+  --background: 0 0% 100%; /* Pure White */
+  --foreground: 240 10% 15%; /* Deep Charcoal */
   
   --card: 0 0% 100%;
-  --card-foreground: 270 30% 15%;
+  --card-foreground: 240 10% 15%;
   
   --popover: 0 0% 100%;
-  --popover-foreground: 270 30% 15%;
+  --popover-foreground: 240 10% 15%;
   
-  --primary: 265 89% 60%; /* Pastel Purple */
-  --primary-foreground: 0 0% 100%;
+  --primary: 48 95% 58%; /* Pastel Yellow */
+  --primary-foreground: 240 10% 15%; /* Charcoal text for readability */
   
-  --secondary: 295 55% 70%; /* Soft Orchid Purple */
-  --secondary-foreground: 270 30% 15%;
+  --secondary: 355 85% 55%; /* Warm Red */
+  --secondary-foreground: 0 0% 100%; /* White text for contrast */
   
-  --muted: 270 20% 95%;
-  --muted-foreground: 270 10% 45%;
+  --muted: 240 6% 96%;
+  --muted-foreground: 240 6% 45%;
   
-  --accent: 270 20% 95%;
-  --accent-foreground: 265 89% 60%;
+  --accent: 48 95% 94%; /* Soft Pastel Yellow tint */
+  --accent-foreground: 355 85% 55%; /* Warm Red text */
   
   --destructive: 346.8 84.1% 50.2%;
   --destructive-foreground: 210 40% 98%;
 
-  --border: 270 20% 92%;
-  --input: 270 20% 92%;
-  --ring: 265 89% 60%;
+  --border: 240 6% 92%;
+  --input: 240 6% 92%;
+  --ring: 355 85% 55%;
 
   --radius: 0.75rem;
 }
 
 .dark {
-  --background: 270 30% 8%;
-  --foreground: 270 10% 95%;
+  --background: 240 10% 6%;
+  --foreground: 240 5% 95%;
   
-  --card: 270 30% 10%;
-  --card-foreground: 270 10% 95%;
+  --card: 240 10% 8%;
+  --card-foreground: 240 5% 95%;
   
-  --popover: 270 30% 10%;
-  --popover-foreground: 270 10% 95%;
+  --popover: 240 10% 8%;
+  --popover-foreground: 240 5% 95%;
   
-  --primary: 265 89% 68%; /* Bright Pastel Purple */
-  --primary-foreground: 270 30% 8%;
+  --primary: 48 95% 65%; /* Lighter Pastel Yellow */
+  --primary-foreground: 240 10% 6%;
   
-  --secondary: 295 55% 75%;
-  --secondary-foreground: 270 30% 8%;
+  --secondary: 355 85% 60%; /* Lighter Warm Red */
+  --secondary-foreground: 0 0% 100%;
   
-  --muted: 270 20% 18%;
-  --muted-foreground: 270 10% 65%;
+  --muted: 240 5% 15%;
+  --muted-foreground: 240 5% 65%;
   
-  --accent: 270 20% 18%;
-  --accent-foreground: 265 89% 68%;
+  --accent: 48 95% 15%;
+  --accent-foreground: 355 85% 60%;
   
   --destructive: 346.8 84.1% 50.2%;
   --destructive-foreground: 210 40% 98%;
 
-  --border: 270 20% 18%;
-  --input: 270 20% 18%;
-  --ring: 265 89% 68%;
+  --border: 240 5% 15%;
+  --input: 240 5% 15%;
+  --ring: 355 85% 60%;
 }
 
 @theme inline {

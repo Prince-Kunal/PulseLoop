@@ -351,7 +351,7 @@ export default function SignupPage() {
                       type="button"
                       onClick={detectLocation}
                       disabled={locating}
-                      className="px-3 py-1.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-xs font-semibold flex items-center justify-center transition-colors disabled:opacity-50"
+                      className="px-3 py-1.5 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg text-xs font-semibold flex items-center justify-center transition-colors disabled:opacity-50"
                     >
                       {locating ? (
                         <>
