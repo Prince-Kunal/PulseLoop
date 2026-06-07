@@ -1,0 +1,217 @@
+"use client";
+
+import { useState } from "react";
+import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  Heart,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  X,
+  User,
+  Building2,
+  Landmark,
+  Shield,
+  Activity
+} from "lucide-react";
+
+interface DashboardShellProps {
+  children: React.ReactNode;
+  userEmail?: string | null;
+  userName?: string | null;
+  role: "DONOR" | "HOSPITAL" | "BLOOD_BANK";
+}
+
+export default function DashboardShell({
+  children,
+  userEmail,
+  userName,
+  role,
+}: DashboardShellProps) {
+  const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Setup navigation items based on role
+  const getNavItems = () => {
+    switch (role) {
+      case "DONOR":
+        return [
+          { name: "Dashboard", href: "/dashboard/donor", icon: LayoutDashboard },
+        ];
+      case "HOSPITAL":
+        return [
+          { name: "Dashboard", href: "/dashboard/hospital", icon: LayoutDashboard },
+        ];
+      case "BLOOD_BANK":
+        return [
+          { name: "Dashboard", href: "/dashboard/blood-bank", icon: LayoutDashboard },
+        ];
+      default:
+        return [];
+    }
+  };
+
+  const navItems = getNavItems();
+
+  const getRoleBadgeColor = () => {
+    switch (role) {
+      case "DONOR":
+        return "bg-teal-500/10 text-teal-400 border-teal-500/20";
+      case "HOSPITAL":
+        return "bg-sky-500/10 text-sky-400 border-sky-500/20";
+      case "BLOOD_BANK":
+        return "bg-rose-500/10 text-rose-400 border-rose-500/20";
+      default:
+        return "bg-slate-500/10 text-slate-400 border-slate-500/20";
+    }
+  };
+
+  const getRoleLabel = () => {
+    switch (role) {
+      case "DONOR":
+        return "Donor";
+      case "HOSPITAL":
+        return "Hospital";
+      case "BLOOD_BANK":
+        return "Blood Bank";
+      default:
+        return "User";
+    }
+  };
+
+  const getRoleIcon = () => {
+    switch (role) {
+      case "DONOR":
+        return <User className="h-4 w-4" />;
+      case "HOSPITAL":
+        return <Building2 className="h-4 w-4" />;
+      case "BLOOD_BANK":
+        return <Landmark className="h-4 w-4" />;
+      default:
+        return <User className="h-4 w-4" />;
+    }
+  };
+
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/auth/signin" });
+  };
+
+  const SidebarContent = () => (
+    <div className="flex flex-col h-full bg-slate-900 border-r border-slate-800">
+      {/* Branding Header */}
+      <div className="h-16 flex items-center px-6 border-b border-slate-800 shrink-0">
+        <Link href="/" className="flex items-center space-x-2">
+          <Heart className="h-7 w-7 text-rose-500 fill-rose-500 animate-pulse" />
+          <span className="text-xl font-bold tracking-tight text-white font-sans">
+            Pulse<span className="text-teal-400">Loop</span>
+          </span>
+        </Link>
+      </div>
+
+      {/* User Info Card */}
+      <div className="p-5 border-b border-slate-800 bg-slate-950/20">
+        <div className="flex items-center space-x-3">
+          <div className="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 font-bold border border-slate-700">
+            {userName ? userName[0].toUpperCase() : (userEmail ? userEmail[0].toUpperCase() : "U")}
+          </div>
+          <div className="min-w-0 flex-1">
+            <h4 className="text-sm font-semibold text-white truncate">
+              {userName || "PulseLoop User"}
+            </h4>
+            <p className="text-xs text-slate-400 truncate mb-1">
+              {userEmail}
+            </p>
+            <div className={`inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full border text-xs font-semibold ${getRoleBadgeColor()}`}>
+              {getRoleIcon()}
+              <span>{getRoleLabel()}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation Links */}
+      <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+        {navItems.map((item) => {
+          const IconComponent = item.icon;
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={`flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all ${
+                isActive
+                  ? "bg-teal-600/10 text-teal-400 border border-teal-500/20 shadow-[0_0_15px_rgba(20,184,166,0.05)]"
+                  : "text-slate-400 border border-transparent hover:bg-slate-800/50 hover:text-white"
+              }`}
+            >
+              <IconComponent className="mr-3 h-5 w-5 shrink-0" />
+              {item.name}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* Footer Log Out */}
+      <div className="p-4 border-t border-slate-800 shrink-0">
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center px-4 py-3 text-sm font-medium text-slate-400 hover:text-rose-400 hover:bg-rose-950/10 border border-transparent hover:border-rose-900/20 rounded-xl transition-all cursor-pointer"
+        >
+          <LogOut className="mr-3 h-5 w-5 text-slate-400 group-hover:text-rose-400" />
+          Log Out
+        </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-slate-950 flex flex-col md:flex-row relative">
+      {/* Background radial effects */}
+      <div className="absolute top-0 right-0 w-[40%] h-[40%] rounded-full bg-teal-950/5 blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-[20%] w-[40%] h-[40%] rounded-full bg-rose-950/5 blur-[100px] pointer-events-none" />
+
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:block w-64 shrink-0 h-screen sticky top-0">
+        <SidebarContent />
+      </aside>
+
+      {/* Mobile Header */}
+      <div className="md:hidden flex h-16 items-center justify-between px-6 border-b border-slate-800 bg-slate-900 shrink-0 z-20">
+        <Link href="/" className="flex items-center space-x-2">
+          <Heart className="h-6 w-6 text-rose-500 fill-rose-500 animate-pulse" />
+          <span className="text-lg font-bold tracking-tight text-white font-sans">
+            Pulse<span className="text-teal-400">Loop</span>
+          </span>
+        </Link>
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="p-1.5 rounded-lg border border-slate-800 text-slate-400 hover:text-white focus:outline-none"
+        >
+          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
+      </div>
+
+      {/* Mobile Drawer */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 z-30 flex">
+          {/* Overlay */}
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          {/* Menu Panel */}
+          <aside className="relative flex flex-col w-64 max-w-xs h-full bg-slate-900 shadow-2xl animate-slide-in">
+            <SidebarContent />
+          </aside>
+        </div>
+      )}
+
+      {/* Main Content Area */}
+      <main className="flex-1 p-6 md:p-10 overflow-y-auto max-w-7xl mx-auto w-full z-10">
+        {children}
+      </main>
+    </div>
+  );
+}
