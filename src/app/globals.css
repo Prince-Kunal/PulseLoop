@@ -10,56 +10,56 @@
   --popover: 0 0% 100%;
   --popover-foreground: 222 47% 11%;
   
-  --primary: 171 100% 35%;
-  --primary-foreground: 171 100% 97%;
+  --primary: 348 83% 47%; /* Crimson Red */
+  --primary-foreground: 0 0% 100%;
   
-  --secondary: 343 90% 55%;
-  --secondary-foreground: 343 100% 97%;
+  --secondary: 215 16% 47%; /* Slate Gray */
+  --secondary-foreground: 210 40% 98%;
   
   --muted: 210 40% 96.1%;
   --muted-foreground: 215.4 16.3% 46.9%;
   
-  --accent: 210 40% 96.1%;
-  --accent-foreground: 222 47% 11%;
+  --accent: 348 80% 96%; /* Soft Rose Accent */
+  --accent-foreground: 348 83% 47%;
   
-  --destructive: 346.8 84.1% 50.2%;
+  --destructive: 348 83% 47%;
   --destructive-foreground: 210 40% 98%;
 
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
-  --ring: 171 100% 35%;
+  --ring: 348 83% 47%;
 
   --radius: 0.75rem;
 }
 
 .dark {
-  --background: 222.2 84% 4.9%;
+  --background: 224 71% 4%; /* Dark Slate background */
   --foreground: 210 40% 98%;
   
-  --card: 222.2 84% 6.5%;
+  --card: 224 71% 6%;
   --card-foreground: 210 40% 98%;
   
-  --popover: 222.2 84% 6.5%;
+  --popover: 224 71% 6%;
   --popover-foreground: 210 40% 98%;
   
-  --primary: 171 100% 40%;
-  --primary-foreground: 171 100% 97%;
+  --primary: 348 83% 53%; /* Vivid Crimson */
+  --primary-foreground: 0 0% 100%;
   
-  --secondary: 343 90% 60%;
-  --secondary-foreground: 343 100% 97%;
+  --secondary: 215 15% 15%; /* Dark Slate Gray */
+  --secondary-foreground: 210 40% 98%;
   
-  --muted: 217.2 32.6% 17.5%;
+  --muted: 217.2 32.6% 12%;
   --muted-foreground: 215 20.2% 65.1%;
   
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
+  --accent: 348 50% 12%; /* Dark Rose Accent */
+  --accent-foreground: 348 83% 53%;
   
-  --destructive: 346.8 84.1% 50.2%;
+  --destructive: 348 83% 53%;
   --destructive-foreground: 210 40% 98%;
 
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 171 100% 40%;
+  --border: 217.2 32.6% 12%;
+  --input: 217.2 32.6% 12%;
+  --ring: 348 83% 53%;
 }
 
 @theme inline {

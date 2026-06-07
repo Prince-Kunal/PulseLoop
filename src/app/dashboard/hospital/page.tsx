@@ -80,8 +80,8 @@ export default async function HospitalDashboard() {
               <span className="text-3xl font-bold text-white block">18</span>
               <p className="text-slate-500 text-xs mt-0.5">Units received this month</p>
             </div>
-            <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
-              <CheckCircle className="h-6 w-6 text-emerald-400" />
+            <div className="p-3 bg-primary/10 border border-primary/20 rounded-xl">
+              <CheckCircle className="h-6 w-6 text-primary" />
             </div>
           </div>
 
@@ -189,7 +189,7 @@ export default async function HospitalDashboard() {
                   <tr className="hover:bg-slate-950/20 transition-all">
                     <td className="py-3.5 px-2 font-medium text-slate-300">#PL-3982</td>
                     <td className="py-3.5 px-2">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded bg-teal-500/10 text-teal-400 font-bold border border-teal-500/10">AB-</span>
+                      <span className="inline-flex items-center px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-bold border border-rose-500/10">AB-</span>
                     </td>
                     <td className="py-3.5 px-2 text-slate-300">2 units</td>
                     <td className="py-3.5 px-2">

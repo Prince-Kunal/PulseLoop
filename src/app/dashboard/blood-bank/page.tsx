@@ -37,8 +37,8 @@ export default async function BloodBankDashboard() {
     { group: "B-", units: 3, color: "from-slate-900/60 to-slate-900 border-slate-800 text-slate-300" },
     { group: "AB+", units: 8, color: "from-rose-500/10 to-slate-900 border-rose-500/10 text-rose-400" },
     { group: "AB-", units: 2, color: "from-slate-900/60 to-slate-900 border-slate-800 text-slate-300" },
-    { group: "O+", units: 25, color: "from-emerald-500/10 to-slate-900 border-emerald-500/10 text-emerald-400" },
-    { group: "O-", units: 9, color: "from-emerald-500/10 to-slate-900 border-emerald-500/10 text-emerald-400" },
+    { group: "O+", units: 25, color: "from-primary/10 to-slate-900 border-primary/20 text-primary" },
+    { group: "O-", units: 9, color: "from-primary/10 to-slate-900 border-primary/20 text-primary" },
   ];
 
   return (
@@ -95,7 +95,7 @@ export default async function BloodBankDashboard() {
               <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Scheduled Drives</span>
               <span className="text-2xl font-bold text-white mt-1 block">1 Active</span>
             </div>
-            <CalendarDays className="h-8 w-8 text-teal-400 opacity-80" />
+            <CalendarDays className="h-8 w-8 text-primary opacity-80" />
           </div>
 
           <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-5 shadow-sm hover:border-slate-700 transition-all flex items-center justify-between">
@@ -151,7 +151,7 @@ export default async function BloodBankDashboard() {
               <div className="p-4 bg-slate-950/20 border border-slate-800 rounded-xl space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-white">Summer LifeSaver Drive</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-teal-500/10 border border-teal-500/20 text-teal-400">ACTIVE</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary">ACTIVE</span>
                 </div>
                 <p className="text-slate-400 text-xs">
                   Date: June 8, 2026 | Location: Plaza East Gym (Within 5 km radius)

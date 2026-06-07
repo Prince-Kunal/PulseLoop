@@ -117,14 +117,14 @@ export default function SignupPage() {
   return (
     <main className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background Gradients */}
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-teal-900/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-rose-900/10 blur-[120px] pointer-events-none" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md z-10">
         <Link href="/" className="flex items-center justify-center space-x-2">
-          <Heart className="h-9 w-9 text-rose-500 fill-rose-500 animate-pulse" />
+          <Heart className="h-9 w-9 text-primary fill-primary animate-pulse" />
           <span className="text-2xl font-bold tracking-tight text-white font-sans">
-            Pulse<span className="text-teal-400">Loop</span>
+            Pulse<span className="text-primary font-bold">Loop</span>
           </span>
         </Link>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-white tracking-tight">
@@ -132,7 +132,7 @@ export default function SignupPage() {
         </h2>
         <p className="mt-2 text-center text-sm text-slate-400">
           Or{" "}
-          <Link href="/auth/signin" className="font-medium text-teal-400 hover:text-teal-300 transition-colors">
+          <Link href="/auth/signin" className="font-medium text-primary hover:text-primary/90 transition-colors">
             sign in to your existing account
           </Link>
         </p>
@@ -142,7 +142,7 @@ export default function SignupPage() {
         <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 py-8 px-4 shadow-2xl sm:rounded-2xl sm:px-10">
           {success ? (
             <div className="text-center py-12 flex flex-col items-center justify-center">
-              <CheckCircle2 className="h-16 w-16 text-teal-400 mb-4 animate-bounce" />
+              <CheckCircle2 className="h-16 w-16 text-primary mb-4 animate-bounce" />
               <h3 className="text-2xl font-bold text-white mb-2">Registration Successful!</h3>
               <p className="text-slate-400">Redirecting you to the sign in page...</p>
             </div>
@@ -159,7 +159,7 @@ export default function SignupPage() {
                     onClick={() => { setRole("DONOR"); setError(""); }}
                     className={`flex flex-col items-center justify-center py-3.5 px-3 border rounded-xl text-xs font-medium transition-all ${
                       role === "DONOR"
-                        ? "border-teal-500 bg-teal-950/40 text-teal-300 shadow-[0_0_15px_rgba(20,184,166,0.15)]"
+                        ? "border-primary bg-rose-950/30 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.15)]"
                         : "border-slate-800 bg-slate-900/20 text-slate-400 hover:border-slate-700 hover:text-slate-200"
                     }`}
                   >
@@ -171,7 +171,7 @@ export default function SignupPage() {
                     onClick={() => { setRole("HOSPITAL"); setError(""); }}
                     className={`flex flex-col items-center justify-center py-3.5 px-3 border rounded-xl text-xs font-medium transition-all ${
                       role === "HOSPITAL"
-                        ? "border-teal-500 bg-teal-950/40 text-teal-300 shadow-[0_0_15px_rgba(20,184,166,0.15)]"
+                        ? "border-primary bg-rose-950/30 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.15)]"
                         : "border-slate-800 bg-slate-900/20 text-slate-400 hover:border-slate-700 hover:text-slate-200"
                     }`}
                   >
@@ -183,7 +183,7 @@ export default function SignupPage() {
                     onClick={() => { setRole("BLOOD_BANK"); setError(""); }}
                     className={`flex flex-col items-center justify-center py-3.5 px-3 border rounded-xl text-xs font-medium transition-all ${
                       role === "BLOOD_BANK"
-                        ? "border-teal-500 bg-teal-950/40 text-teal-300 shadow-[0_0_15px_rgba(20,184,166,0.15)]"
+                        ? "border-primary bg-rose-950/30 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.15)]"
                         : "border-slate-800 bg-slate-900/20 text-slate-400 hover:border-slate-700 hover:text-slate-200"
                     }`}
                   >
@@ -214,7 +214,7 @@ export default function SignupPage() {
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="John Doe"
-                        className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm"
+                        className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                       />
                     </div>
 
@@ -229,7 +229,7 @@ export default function SignupPage() {
                           required
                           value={dateOfBirth}
                           onChange={(e) => setDateOfBirth(e.target.value)}
-                          className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm"
+                          className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                         />
                       </div>
                       <div>
@@ -240,7 +240,7 @@ export default function SignupPage() {
                           id="bloodGroup"
                           value={bloodGroup}
                           onChange={(e) => setBloodGroup(e.target.value)}
-                          className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm"
+                          className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                         >
                           {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((bg) => (
                             <option key={bg} value={bg} className="bg-slate-900 text-white">
@@ -262,7 +262,7 @@ export default function SignupPage() {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="+1 (555) 000-0000"
-                        className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm"
+                        className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                       />
                     </div>
                   </>
@@ -280,7 +280,7 @@ export default function SignupPage() {
                       value={hospitalName}
                       onChange={(e) => setHospitalName(e.target.value)}
                       placeholder="City General Hospital"
-                      className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm"
+                      className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                     />
                   </div>
                 )}
@@ -297,7 +297,7 @@ export default function SignupPage() {
                       value={bloodBankName}
                       onChange={(e) => setBloodBankName(e.target.value)}
                       placeholder="Red Cross Blood Center"
-                      className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm"
+                      className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                     />
                   </div>
                 )}
@@ -315,7 +315,7 @@ export default function SignupPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm"
+                    className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                   />
                 </div>
 
@@ -331,7 +331,7 @@ export default function SignupPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm"
+                    className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                   />
                 </div>
 
@@ -340,7 +340,7 @@ export default function SignupPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <h4 className="text-sm font-medium text-white flex items-center">
-                        <MapPin className="h-4 w-4 mr-1.5 text-teal-400" />
+                        <MapPin className="h-4 w-4 mr-1.5 text-primary" />
                         Location Coordinates
                       </h4>
                       <p className="text-xs text-slate-400 mt-0.5">
@@ -351,7 +351,7 @@ export default function SignupPage() {
                       type="button"
                       onClick={detectLocation}
                       disabled={locating}
-                      className="px-3 py-1.5 bg-teal-600 hover:bg-teal-500 text-white rounded-lg text-xs font-semibold flex items-center justify-center transition-colors disabled:opacity-50"
+                      className="px-3 py-1.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-xs font-semibold flex items-center justify-center transition-colors disabled:opacity-50"
                     >
                       {locating ? (
                         <>
@@ -380,7 +380,7 @@ export default function SignupPage() {
                           setLocationSuccess(false);
                         }}
                         placeholder="e.g. 40.7128"
-                        className="block w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-teal-500 focus:border-transparent transition-all text-xs"
+                        className="block w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition-all text-xs"
                       />
                     </div>
                     <div>
@@ -398,13 +398,13 @@ export default function SignupPage() {
                           setLocationSuccess(false);
                         }}
                         placeholder="e.g. -74.0060"
-                        className="block w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-teal-500 focus:border-transparent transition-all text-xs"
+                        className="block w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition-all text-xs"
                       />
                     </div>
                   </div>
 
                   {locationSuccess && (
-                    <div className="flex items-center text-teal-400 text-xs mt-2.5">
+                    <div className="flex items-center text-primary text-xs mt-2.5">
                       <CheckCircle2 className="h-3.5 w-3.5 mr-1" />
                       Coordinates successfully acquired via geolocation.
                     </div>
@@ -416,7 +416,7 @@ export default function SignupPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-semibold text-white bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950 focus:ring-teal-500 transition-all transform hover:-translate-y-0.5 cursor-pointer disabled:opacity-50 disabled:transform-none"
+                  className="w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-semibold text-white bg-gradient-to-r from-primary to-rose-600 hover:from-primary/95 hover:to-rose-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950 focus:ring-primary transition-all transform hover:-translate-y-0.5 cursor-pointer disabled:opacity-50 disabled:transform-none"
                 >
                   {loading ? (
                     <>

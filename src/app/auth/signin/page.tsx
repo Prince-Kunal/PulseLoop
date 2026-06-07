@@ -75,7 +75,7 @@ function SignInForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm"
+            className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
           />
         </div>
 
@@ -93,7 +93,7 @@ function SignInForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm"
+            className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
           />
         </div>
 
@@ -101,7 +101,7 @@ function SignInForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-semibold text-white bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950 focus:ring-teal-500 transition-all transform hover:-translate-y-0.5 cursor-pointer disabled:opacity-50 disabled:transform-none"
+            className="w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-semibold text-white bg-gradient-to-r from-primary to-rose-600 hover:from-primary/95 hover:to-rose-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950 focus:ring-primary transition-all transform hover:-translate-y-0.5 cursor-pointer disabled:opacity-50 disabled:transform-none"
           >
             {loading ? (
               <>
@@ -122,14 +122,14 @@ export default function SigninPage() {
   return (
     <main className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background Gradients */}
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-teal-900/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-rose-900/10 blur-[120px] pointer-events-none" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md z-10">
         <Link href="/" className="flex items-center justify-center space-x-2">
-          <Heart className="h-9 w-9 text-rose-500 fill-rose-500 animate-pulse" />
+          <Heart className="h-9 w-9 text-primary fill-primary animate-pulse" />
           <span className="text-2xl font-bold tracking-tight text-white font-sans">
-            Pulse<span className="text-teal-400">Loop</span>
+            Pulse<span className="text-primary font-bold">Loop</span>
           </span>
         </Link>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-white tracking-tight">
@@ -137,7 +137,7 @@ export default function SigninPage() {
         </h2>
         <p className="mt-2 text-center text-sm text-slate-400">
           Or{" "}
-          <Link href="/auth/signup" className="font-medium text-teal-400 hover:text-teal-300 transition-colors">
+          <Link href="/auth/signup" className="font-medium text-primary hover:text-primary/90 transition-colors">
             register a new PulseLoop account
           </Link>
         </p>
@@ -146,7 +146,7 @@ export default function SigninPage() {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-10">
         <Suspense fallback={
           <div className="bg-slate-900/50 border border-slate-800 p-8 rounded-2xl flex justify-center items-center">
-            <Loader2 className="h-8 w-8 text-teal-400 animate-spin" />
+            <Loader2 className="h-8 w-8 text-primary animate-spin" />
           </div>
         }>
           <SignInForm />

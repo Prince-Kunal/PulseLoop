@@ -58,11 +58,11 @@ export default function DashboardShell({
   const getRoleBadgeColor = () => {
     switch (role) {
       case "DONOR":
-        return "bg-teal-500/10 text-teal-400 border-teal-500/20";
+        return "bg-rose-500/10 text-rose-400 border-rose-500/20";
       case "HOSPITAL":
         return "bg-sky-500/10 text-sky-400 border-sky-500/20";
       case "BLOOD_BANK":
-        return "bg-rose-500/10 text-rose-400 border-rose-500/20";
+        return "bg-primary/10 text-primary border-primary/20";
       default:
         return "bg-slate-500/10 text-slate-400 border-slate-500/20";
     }
@@ -103,9 +103,9 @@ export default function DashboardShell({
       {/* Branding Header */}
       <div className="h-16 flex items-center px-6 border-b border-slate-800 shrink-0">
         <Link href="/" className="flex items-center space-x-2">
-          <Heart className="h-7 w-7 text-rose-500 fill-rose-500 animate-pulse" />
+          <Heart className="h-7 w-7 text-primary fill-primary animate-pulse" />
           <span className="text-xl font-bold tracking-tight text-white font-sans">
-            Pulse<span className="text-teal-400">Loop</span>
+            Pulse<span className="text-primary font-bold">Loop</span>
           </span>
         </Link>
       </div>
@@ -142,7 +142,7 @@ export default function DashboardShell({
               href={item.href}
               className={`flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all ${
                 isActive
-                  ? "bg-teal-600/10 text-teal-400 border border-teal-500/20 shadow-[0_0_15px_rgba(20,184,166,0.05)]"
+                  ? "bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(244,63,94,0.05)]"
                   : "text-slate-400 border border-transparent hover:bg-slate-800/50 hover:text-white"
               }`}
             >
@@ -169,7 +169,7 @@ export default function DashboardShell({
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col md:flex-row relative">
       {/* Background radial effects */}
-      <div className="absolute top-0 right-0 w-[40%] h-[40%] rounded-full bg-teal-950/5 blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[40%] h-[40%] rounded-full bg-rose-950/5 blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 left-[20%] w-[40%] h-[40%] rounded-full bg-rose-950/5 blur-[100px] pointer-events-none" />
 
       {/* Desktop Sidebar */}
@@ -180,9 +180,9 @@ export default function DashboardShell({
       {/* Mobile Header */}
       <div className="md:hidden flex h-16 items-center justify-between px-6 border-b border-slate-800 bg-slate-900 shrink-0 z-20">
         <Link href="/" className="flex items-center space-x-2">
-          <Heart className="h-6 w-6 text-rose-500 fill-rose-500 animate-pulse" />
+          <Heart className="h-6 w-6 text-primary fill-primary animate-pulse" />
           <span className="text-lg font-bold tracking-tight text-white font-sans">
-            Pulse<span className="text-teal-400">Loop</span>
+            Pulse<span className="text-primary font-bold">Loop</span>
           </span>
         </Link>
         <button
