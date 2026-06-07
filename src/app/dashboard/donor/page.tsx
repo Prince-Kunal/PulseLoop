@@ -86,8 +86,8 @@ export default async function DonorDashboard() {
                 </h3>
                 {isEligible ? (
                   <span className="relative flex h-3.5 w-3.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-primary"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500"></span>
                   </span>
                 ) : (
                   <Clock className="h-5 w-5 text-amber-500" />
@@ -97,8 +97,8 @@ export default async function DonorDashboard() {
               {isEligible ? (
                 <div className="mt-5">
                   <div className="flex items-center space-x-2.5">
-                    <UserCheck className="h-7 w-7 text-primary" />
-                    <span className="text-2xl font-bold text-foreground">Eligible to Donate</span>
+                    <UserCheck className="h-7 w-7 text-emerald-500" />
+                    <span className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">Eligible to Donate</span>
                   </div>
                   <p className="text-muted-foreground text-xs mt-3 leading-relaxed">
                     You can donate blood immediately. Check the emergency requests below or find a nearby drive!
