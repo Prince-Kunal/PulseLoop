@@ -1,65 +1,65 @@
 @import "tailwindcss";
 
 :root {
-  --background: 210 40% 98%;
-  --foreground: 222 47% 11%;
+  --background: 270 20% 99%; /* Premium soft white with a lavender tint */
+  --foreground: 270 30% 15%; /* Deep Plum/Charcoal */
   
   --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
+  --card-foreground: 270 30% 15%;
   
   --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 11%;
+  --popover-foreground: 270 30% 15%;
   
-  --primary: 199 89% 48%; /* Modern Sky Blue */
-  --primary-foreground: 210 40% 98%;
+  --primary: 265 89% 60%; /* Pastel Purple */
+  --primary-foreground: 0 0% 100%;
   
-  --secondary: 335 100% 75%; /* Warm Pastel Light Pink */
-  --secondary-foreground: 222 47% 11%;
+  --secondary: 295 55% 70%; /* Soft Orchid Purple */
+  --secondary-foreground: 270 30% 15%;
   
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
+  --muted: 270 20% 95%;
+  --muted-foreground: 270 10% 45%;
   
-  --accent: 335 100% 96%;
-  --accent-foreground: 335 100% 48%;
+  --accent: 270 20% 95%;
+  --accent-foreground: 265 89% 60%;
   
   --destructive: 346.8 84.1% 50.2%;
   --destructive-foreground: 210 40% 98%;
 
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 199 89% 48%;
+  --border: 270 20% 92%;
+  --input: 270 20% 92%;
+  --ring: 265 89% 60%;
 
   --radius: 0.75rem;
 }
 
 .dark {
-  --background: 224 25% 6%; /* Premium Slate Charcoal */
-  --foreground: 210 40% 98%;
+  --background: 270 30% 8%;
+  --foreground: 270 10% 95%;
   
-  --card: 224 25% 8%;
-  --card-foreground: 210 40% 98%;
+  --card: 270 30% 10%;
+  --card-foreground: 270 10% 95%;
   
-  --popover: 224 25% 8%;
-  --popover-foreground: 210 40% 98%;
+  --popover: 270 30% 10%;
+  --popover-foreground: 270 10% 95%;
   
-  --primary: 199 89% 58%; /* Vivid Sky Blue */
-  --primary-foreground: 224 25% 6%;
+  --primary: 265 89% 68%; /* Bright Pastel Purple */
+  --primary-foreground: 270 30% 8%;
   
-  --secondary: 335 100% 80%; /* Pastel Light Pink */
-  --secondary-foreground: 224 25% 6%;
+  --secondary: 295 55% 75%;
+  --secondary-foreground: 270 30% 8%;
   
-  --muted: 217.2 32.6% 12%;
-  --muted-foreground: 215 20.2% 65.1%;
+  --muted: 270 20% 18%;
+  --muted-foreground: 270 10% 65%;
   
-  --accent: 335 30% 12%; /* Dark Pink Accent */
-  --accent-foreground: 335 100% 80%;
+  --accent: 270 20% 18%;
+  --accent-foreground: 265 89% 68%;
   
   --destructive: 346.8 84.1% 50.2%;
   --destructive-foreground: 210 40% 98%;
 
-  --border: 217.2 32.6% 12%;
-  --input: 217.2 32.6% 12%;
-  --ring: 199 89% 58%;
+  --border: 270 20% 18%;
+  --input: 270 20% 18%;
+  --ring: 265 89% 68%;
 }
 
 @theme inline {

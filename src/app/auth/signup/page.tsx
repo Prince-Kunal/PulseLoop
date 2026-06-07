@@ -115,42 +115,42 @@ export default function SignupPage() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+    <main className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background Gradients */}
       <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-secondary/5 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-secondary/10 blur-[120px] pointer-events-none" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md z-10">
         <Link href="/" className="flex items-center justify-center space-x-2">
-          <Heart className="h-9 w-9 text-secondary fill-secondary animate-pulse" />
-          <span className="text-2xl font-bold tracking-tight text-white font-sans">
+          <Heart className="h-9 w-9 text-primary fill-primary animate-pulse" />
+          <span className="text-2xl font-bold tracking-tight text-foreground font-sans">
             Pulse<span className="text-primary font-bold">Loop</span>
           </span>
         </Link>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-white tracking-tight">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-foreground tracking-tight">
           Create your account
         </h2>
-        <p className="mt-2 text-center text-sm text-slate-400">
+        <p className="mt-2 text-center text-sm text-muted-foreground">
           Or{" "}
-          <Link href="/auth/signin" className="font-medium text-primary hover:text-primary/90 transition-colors">
+          <Link href="/auth/signin" className="font-medium text-primary hover:text-primary/95 transition-colors">
             sign in to your existing account
           </Link>
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl z-10">
-        <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 py-8 px-4 shadow-2xl sm:rounded-2xl sm:px-10">
+        <div className="bg-card border border-border py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10">
           {success ? (
             <div className="text-center py-12 flex flex-col items-center justify-center">
               <CheckCircle2 className="h-16 w-16 text-primary mb-4 animate-bounce" />
-              <h3 className="text-2xl font-bold text-white mb-2">Registration Successful!</h3>
-              <p className="text-slate-400">Redirecting you to the sign in page...</p>
+              <h3 className="text-2xl font-bold text-foreground mb-2">Registration Successful!</h3>
+              <p className="text-muted-foreground">Redirecting you to the sign in page...</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Role Selection Tabs */}
               <div>
-                <label className="block text-sm font-semibold text-slate-300 mb-3">
+                <label className="block text-sm font-semibold text-foreground mb-3">
                   I want to register as a:
                 </label>
                 <div className="grid grid-cols-3 gap-3">
@@ -159,8 +159,8 @@ export default function SignupPage() {
                     onClick={() => { setRole("DONOR"); setError(""); }}
                     className={`flex flex-col items-center justify-center py-3.5 px-3 border rounded-xl text-xs font-medium transition-all ${
                       role === "DONOR"
-                        ? "border-primary bg-primary/10 text-primary shadow-[0_0_15px_rgba(56,189,248,0.1)]"
-                        : "border-slate-800 bg-slate-900/20 text-slate-400 hover:border-slate-700 hover:text-slate-200"
+                        ? "border-primary bg-primary/10 text-primary shadow-sm"
+                        : "border-border bg-card text-muted-foreground hover:bg-slate-50 hover:text-foreground"
                     }`}
                   >
                     <User className="h-5 w-5 mb-1.5" />
@@ -171,8 +171,8 @@ export default function SignupPage() {
                     onClick={() => { setRole("HOSPITAL"); setError(""); }}
                     className={`flex flex-col items-center justify-center py-3.5 px-3 border rounded-xl text-xs font-medium transition-all ${
                       role === "HOSPITAL"
-                        ? "border-primary bg-primary/10 text-primary shadow-[0_0_15px_rgba(56,189,248,0.1)]"
-                        : "border-slate-800 bg-slate-900/20 text-slate-400 hover:border-slate-700 hover:text-slate-200"
+                        ? "border-primary bg-primary/10 text-primary shadow-sm"
+                        : "border-border bg-card text-muted-foreground hover:bg-slate-50 hover:text-foreground"
                     }`}
                   >
                     <Building2 className="h-5 w-5 mb-1.5" />
@@ -183,8 +183,8 @@ export default function SignupPage() {
                     onClick={() => { setRole("BLOOD_BANK"); setError(""); }}
                     className={`flex flex-col items-center justify-center py-3.5 px-3 border rounded-xl text-xs font-medium transition-all ${
                       role === "BLOOD_BANK"
-                        ? "border-primary bg-primary/10 text-primary shadow-[0_0_15px_rgba(56,189,248,0.1)]"
-                        : "border-slate-800 bg-slate-900/20 text-slate-400 hover:border-slate-700 hover:text-slate-200"
+                        ? "border-primary bg-primary/10 text-primary shadow-sm"
+                        : "border-border bg-card text-muted-foreground hover:bg-slate-50 hover:text-foreground"
                     }`}
                   >
                     <Landmark className="h-5 w-5 mb-1.5" />
@@ -194,7 +194,7 @@ export default function SignupPage() {
               </div>
 
               {error && (
-                <div className="bg-rose-950/40 border border-rose-800 text-rose-300 px-4 py-3 rounded-xl text-sm" role="alert">
+                <div className="bg-rose-50 border border-rose-200 text-rose-600 px-4 py-3 rounded-xl text-sm" role="alert">
                   {error}
                 </div>
               )}
@@ -204,7 +204,7 @@ export default function SignupPage() {
                 {role === "DONOR" && (
                   <>
                     <div>
-                      <label htmlFor="fullName" className="block text-sm font-medium text-slate-300">
+                      <label htmlFor="fullName" className="block text-sm font-medium text-foreground">
                         Full Name
                       </label>
                       <input
@@ -214,13 +214,13 @@ export default function SignupPage() {
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="John Doe"
-                        className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
+                        className="mt-1 block w-full px-4 py-3 bg-muted/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                       />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="dateOfBirth" className="block text-sm font-medium text-slate-300">
+                        <label htmlFor="dateOfBirth" className="block text-sm font-medium text-foreground">
                           Date of Birth
                         </label>
                         <input
@@ -229,21 +229,21 @@ export default function SignupPage() {
                           required
                           value={dateOfBirth}
                           onChange={(e) => setDateOfBirth(e.target.value)}
-                          className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
+                          className="mt-1 block w-full px-4 py-3 bg-muted/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                         />
                       </div>
                       <div>
-                        <label htmlFor="bloodGroup" className="block text-sm font-medium text-slate-300">
+                        <label htmlFor="bloodGroup" className="block text-sm font-medium text-foreground">
                           Blood Group
                         </label>
                         <select
                           id="bloodGroup"
                           value={bloodGroup}
                           onChange={(e) => setBloodGroup(e.target.value)}
-                          className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
+                          className="mt-1 block w-full px-4 py-3 bg-muted/50 border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                         >
                           {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((bg) => (
-                            <option key={bg} value={bg} className="bg-slate-900 text-white">
+                            <option key={bg} value={bg} className="bg-card text-foreground">
                               {bg}
                             </option>
                           ))}
@@ -252,7 +252,7 @@ export default function SignupPage() {
                     </div>
 
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-slate-300">
+                      <label htmlFor="phone" className="block text-sm font-medium text-foreground">
                         Phone Number
                       </label>
                       <input
@@ -262,7 +262,7 @@ export default function SignupPage() {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="+1 (555) 000-0000"
-                        className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
+                        className="mt-1 block w-full px-4 py-3 bg-muted/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                       />
                     </div>
                   </>
@@ -270,7 +270,7 @@ export default function SignupPage() {
 
                 {role === "HOSPITAL" && (
                   <div>
-                    <label htmlFor="hospitalName" className="block text-sm font-medium text-slate-300">
+                    <label htmlFor="hospitalName" className="block text-sm font-medium text-foreground">
                       Hospital Name
                     </label>
                     <input
@@ -280,14 +280,14 @@ export default function SignupPage() {
                       value={hospitalName}
                       onChange={(e) => setHospitalName(e.target.value)}
                       placeholder="City General Hospital"
-                      className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
+                      className="mt-1 block w-full px-4 py-3 bg-muted/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                     />
                   </div>
                 )}
 
                 {role === "BLOOD_BANK" && (
                   <div>
-                    <label htmlFor="bloodBankName" className="block text-sm font-medium text-slate-300">
+                    <label htmlFor="bloodBankName" className="block text-sm font-medium text-foreground">
                       Blood Bank Name
                     </label>
                     <input
@@ -297,14 +297,14 @@ export default function SignupPage() {
                       value={bloodBankName}
                       onChange={(e) => setBloodBankName(e.target.value)}
                       placeholder="Red Cross Blood Center"
-                      className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
+                      className="mt-1 block w-full px-4 py-3 bg-muted/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                     />
                   </div>
                 )}
 
                 {/* Common Account Credentials */}
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-300">
+                  <label htmlFor="email" className="block text-sm font-medium text-foreground">
                     Email Address
                   </label>
                   <input
@@ -315,12 +315,12 @@ export default function SignupPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
+                    className="mt-1 block w-full px-4 py-3 bg-muted/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-slate-300">
+                  <label htmlFor="password" className="block text-sm font-medium text-foreground">
                     Password
                   </label>
                   <input
@@ -331,27 +331,27 @@ export default function SignupPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="mt-1 block w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
+                    className="mt-1 block w-full px-4 py-3 bg-muted/50 border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                   />
                 </div>
 
                 {/* Location Detection */}
-                <div className="bg-slate-900/30 border border-slate-800/80 rounded-xl p-4 mt-2">
+                <div className="bg-muted/30 border border-border rounded-xl p-4 mt-2">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="text-sm font-medium text-white flex items-center">
+                      <h4 className="text-sm font-medium text-foreground flex items-center">
                         <MapPin className="h-4 w-4 mr-1.5 text-primary" />
                         Location Coordinates
                       </h4>
-                      <p className="text-xs text-slate-400 mt-0.5">
-                        PulseLoop uses coordinates to match nearby emergency needs.
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        PulseLoop uses coordinates to match emergency needs.
                       </p>
                     </div>
                     <button
                       type="button"
                       onClick={detectLocation}
                       disabled={locating}
-                      className="px-3 py-1.5 bg-primary hover:bg-primary/90 text-slate-950 rounded-lg text-xs font-semibold flex items-center justify-center transition-colors disabled:opacity-50"
+                      className="px-3 py-1.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-xs font-semibold flex items-center justify-center transition-colors disabled:opacity-50"
                     >
                       {locating ? (
                         <>
@@ -366,7 +366,7 @@ export default function SignupPage() {
 
                   <div className="grid grid-cols-2 gap-3 mt-3">
                     <div>
-                      <label htmlFor="latitude" className="block text-xs font-medium text-slate-400 mb-1">
+                      <label htmlFor="latitude" className="block text-xs font-medium text-muted-foreground mb-1">
                         Latitude
                       </label>
                       <input
@@ -380,11 +380,11 @@ export default function SignupPage() {
                           setLocationSuccess(false);
                         }}
                         placeholder="e.g. 40.7128"
-                        className="block w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition-all text-xs"
+                        className="block w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition-all text-xs"
                       />
                     </div>
                     <div>
-                      <label htmlFor="longitude" className="block text-xs font-medium text-slate-400 mb-1">
+                      <label htmlFor="longitude" className="block text-xs font-medium text-muted-foreground mb-1">
                         Longitude
                       </label>
                       <input
@@ -398,7 +398,7 @@ export default function SignupPage() {
                           setLocationSuccess(false);
                         }}
                         placeholder="e.g. -74.0060"
-                        className="block w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition-all text-xs"
+                        className="block w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition-all text-xs"
                       />
                     </div>
                   </div>
@@ -416,7 +416,7 @@ export default function SignupPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-semibold text-slate-950 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950 focus:ring-primary transition-all transform hover:-translate-y-0.5 cursor-pointer disabled:opacity-50 disabled:transform-none"
+                  className="w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-semibold text-white bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary transition-all transform hover:-translate-y-0.5 cursor-pointer disabled:opacity-50 disabled:transform-none"
                 >
                   {loading ? (
                     <>
