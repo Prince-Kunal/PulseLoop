@@ -51,7 +51,7 @@ export default async function DonorDashboard() {
     >
       <div className="space-y-8">
         {/* Welcome Banner */}
-        <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-r from-rose-950/20 to-slate-900 p-8 shadow-lg">
+        <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/10 to-slate-900 p-8 shadow-lg">
           <div className="absolute right-0 top-0 -mr-6 -mt-6 w-36 h-36 rounded-full bg-primary/10 blur-xl pointer-events-none" />
           <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
@@ -67,7 +67,7 @@ export default async function DonorDashboard() {
             </div>
             <div className="bg-slate-950/40 border border-slate-800 rounded-xl px-5 py-3.5 self-start md:self-auto shrink-0 flex items-center space-x-3">
               <span className="text-xs text-slate-400">Verified Blood Group:</span>
-              <span className="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 font-bold text-lg">
+              <span className="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-secondary/10 border border-secondary/20 text-secondary font-bold text-lg">
                 {donorProfile.bloodGroup}
               </span>
             </div>
@@ -78,7 +78,7 @@ export default async function DonorDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Eligibility Card */}
           <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between shadow-md relative overflow-hidden group">
-            <div className="absolute right-0 top-0 w-24 h-24 rounded-full bg-rose-500/5 group-hover:bg-rose-500/10 blur-xl transition-all" />
+            <div className="absolute right-0 top-0 w-24 h-24 rounded-full bg-secondary/5 group-hover:bg-secondary/10 blur-xl transition-all" />
             <div>
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">
@@ -86,7 +86,7 @@ export default async function DonorDashboard() {
                 </h3>
                 {isEligible ? (
                   <span className="relative flex h-3.5 w-3.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-primary"></span>
                   </span>
                 ) : (
@@ -132,7 +132,7 @@ export default async function DonorDashboard() {
             <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-5 shadow-sm hover:border-slate-700 transition-all flex flex-col justify-between">
               <div className="flex justify-between items-start">
                 <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Donations</span>
-                <Heart className="h-5 w-5 text-primary" />
+                <Heart className="h-5 w-5 text-secondary" />
               </div>
               <div className="mt-4">
                 <span className="text-3xl font-bold text-white">12</span>
@@ -168,7 +168,7 @@ export default async function DonorDashboard() {
                 <Award className="h-5 w-5 text-indigo-400" />
               </div>
               <div className="mt-4 flex flex-wrap gap-1.5">
-                <span className="inline-flex px-2 py-0.5 rounded-lg bg-rose-500/10 text-rose-300 border border-rose-500/20 text-[10px] font-semibold">Life Saver</span>
+                <span className="inline-flex px-2 py-0.5 rounded-lg bg-secondary/10 text-secondary border border-secondary/20 text-[10px] font-semibold">Life Saver</span>
                 <span className="inline-flex px-2 py-0.5 rounded-lg bg-primary/10 text-primary border border-primary/20 text-[10px] font-semibold">Elite Hero</span>
                 <span className="inline-flex px-2 py-0.5 rounded-lg bg-amber-500/10 text-amber-300 border border-amber-500/20 text-[10px] font-semibold">Pioneer</span>
               </div>
@@ -183,10 +183,10 @@ export default async function DonorDashboard() {
             <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 shadow-md">
               <div className="flex items-center justify-between mb-5">
                 <h3 className="text-lg font-bold text-white flex items-center">
-                  <AlertTriangle className="h-5 w-5 mr-2 text-primary animate-pulse" />
+                  <AlertTriangle className="h-5 w-5 mr-2 text-secondary animate-pulse" />
                   Urgent Emergency Requests
                 </h3>
-                <span className="px-2.5 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold">
+                <span className="px-2.5 py-0.5 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-xs font-semibold">
                   Live Matches
                 </span>
               </div>
@@ -194,11 +194,11 @@ export default async function DonorDashboard() {
               {isEligible ? (
                 <div className="space-y-4">
                   {/* Match 1 */}
-                  <div className="p-4 border border-rose-500/20 hover:border-rose-500/40 bg-rose-950/5 rounded-xl flex items-center justify-between transition-all">
+                  <div className="p-4 border border-secondary/20 hover:border-secondary/40 bg-secondary/5 rounded-xl flex items-center justify-between transition-all">
                     <div className="space-y-1">
                       <div className="flex items-center space-x-2">
                         <span className="text-sm font-semibold text-white">St. Mary General Hospital</span>
-                        <span className="inline-flex text-[10px] px-1.5 py-0.5 bg-rose-500/20 text-rose-300 border border-rose-500/30 rounded font-semibold">CRITICAL</span>
+                        <span className="inline-flex text-[10px] px-1.5 py-0.5 bg-secondary/20 text-secondary border border-secondary/30 rounded font-semibold">CRITICAL</span>
                       </div>
                       <p className="text-slate-400 text-xs flex items-center">
                         <MapPin className="h-3 w-3 mr-1 text-slate-500" />
@@ -208,9 +208,9 @@ export default async function DonorDashboard() {
                     <div className="flex items-center space-x-4">
                       <div className="text-right">
                         <span className="text-xs text-slate-500 block">Needs</span>
-                        <span className="text-lg font-bold text-rose-400">{donorProfile.bloodGroup}</span>
+                        <span className="text-lg font-bold text-secondary">{donorProfile.bloodGroup}</span>
                       </div>
-                      <button className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer">
+                      <button className="px-4 py-2 bg-secondary hover:bg-secondary/90 text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer">
                         Accept Request
                       </button>
                     </div>
@@ -231,9 +231,9 @@ export default async function DonorDashboard() {
                     <div className="flex items-center space-x-4">
                       <div className="text-right">
                         <span className="text-xs text-slate-500 block">Needs</span>
-                        <span className="text-lg font-bold text-rose-400">{donorProfile.bloodGroup}</span>
+                        <span className="text-lg font-bold text-secondary">{donorProfile.bloodGroup}</span>
                       </div>
-                      <button className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-semibold transition-colors cursor-pointer">
+                      <button className="px-4 py-2 bg-slate-850 hover:bg-slate-800 text-slate-200 rounded-lg text-xs font-semibold transition-colors cursor-pointer">
                         Accept Request
                       </button>
                     </div>
@@ -259,7 +259,7 @@ export default async function DonorDashboard() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="p-4 border border-slate-800 bg-slate-950/25 rounded-xl hover:border-slate-700 transition-all">
-                  <span className="inline-flex text-[10px] px-2 py-0.5 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-lg font-semibold mb-2">Tomorrow</span>
+                  <span className="inline-flex text-[10px] px-2 py-0.5 bg-secondary/10 border border-secondary/20 text-secondary rounded-lg font-semibold mb-2">Tomorrow</span>
                   <h4 className="text-sm font-bold text-white truncate">Annual Summer Blood Drive</h4>
                   <p className="text-slate-400 text-xs mt-1.5 flex items-center">
                     <MapPin className="h-3 w-3 mr-1 text-slate-500" />

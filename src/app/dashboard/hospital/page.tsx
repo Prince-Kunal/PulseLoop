@@ -168,11 +168,11 @@ export default async function HospitalDashboard() {
                   <tr className="hover:bg-slate-950/20 transition-all">
                     <td className="py-3.5 px-2 font-medium text-slate-300">#PL-4091</td>
                     <td className="py-3.5 px-2">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-bold border border-rose-500/10">O+</span>
+                      <span className="inline-flex items-center px-2 py-0.5 rounded bg-secondary/10 text-secondary font-bold border border-secondary/10">O+</span>
                     </td>
                     <td className="py-3.5 px-2 text-slate-300">4 units</td>
                     <td className="py-3.5 px-2">
-                      <span className="inline-flex px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 text-[10px] font-semibold border border-rose-500/10">CRITICAL</span>
+                      <span className="inline-flex px-2 py-0.5 rounded-full bg-secondary/10 text-secondary text-[10px] font-semibold border border-secondary/10">CRITICAL</span>
                     </td>
                     <td className="py-3.5 px-2">
                       <span className="inline-flex items-center text-amber-400">
@@ -189,7 +189,7 @@ export default async function HospitalDashboard() {
                   <tr className="hover:bg-slate-950/20 transition-all">
                     <td className="py-3.5 px-2 font-medium text-slate-300">#PL-3982</td>
                     <td className="py-3.5 px-2">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-bold border border-rose-500/10">AB-</span>
+                      <span className="inline-flex items-center px-2 py-0.5 rounded bg-secondary/10 text-secondary font-bold border border-secondary/10">AB-</span>
                     </td>
                     <td className="py-3.5 px-2 text-slate-300">2 units</td>
                     <td className="py-3.5 px-2">

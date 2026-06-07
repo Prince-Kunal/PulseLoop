@@ -31,11 +31,11 @@ export default async function BloodBankDashboard() {
 
   // Mock blood groups stock data
   const mockInventory = [
-    { group: "A+", units: 14, color: "from-rose-500/10 to-slate-900 border-rose-500/10 text-rose-400" },
+    { group: "A+", units: 14, color: "from-secondary/10 to-slate-900 border-secondary/20 text-secondary" },
     { group: "A-", units: 5, color: "from-slate-900/60 to-slate-900 border-slate-800 text-slate-300" },
-    { group: "B+", units: 18, color: "from-rose-500/10 to-slate-900 border-rose-500/10 text-rose-400" },
+    { group: "B+", units: 18, color: "from-secondary/10 to-slate-900 border-secondary/20 text-secondary" },
     { group: "B-", units: 3, color: "from-slate-900/60 to-slate-900 border-slate-800 text-slate-300" },
-    { group: "AB+", units: 8, color: "from-rose-500/10 to-slate-900 border-rose-500/10 text-rose-400" },
+    { group: "AB+", units: 8, color: "from-secondary/10 to-slate-900 border-secondary/20 text-secondary" },
     { group: "AB-", units: 2, color: "from-slate-900/60 to-slate-900 border-slate-800 text-slate-300" },
     { group: "O+", units: 25, color: "from-primary/10 to-slate-900 border-primary/20 text-primary" },
     { group: "O-", units: 9, color: "from-primary/10 to-slate-900 border-primary/20 text-primary" },
@@ -49,11 +49,11 @@ export default async function BloodBankDashboard() {
     >
       <div className="space-y-8">
         {/* Blood Bank Banner Header */}
-        <div className="relative overflow-hidden rounded-2xl border border-rose-500/20 bg-gradient-to-r from-rose-900/20 to-slate-900 p-8 shadow-lg">
-          <div className="absolute right-0 top-0 -mr-6 -mt-6 w-36 h-36 rounded-full bg-rose-500/10 blur-xl pointer-events-none" />
+        <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/10 to-slate-900 p-8 shadow-lg">
+          <div className="absolute right-0 top-0 -mr-6 -mt-6 w-36 h-36 rounded-full bg-primary/10 blur-xl pointer-events-none" />
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-rose-400">
+              <span className="text-xs font-semibold uppercase tracking-wider text-primary">
                 Blood Bank Operations Hub
               </span>
               <h1 className="text-3xl font-bold tracking-tight text-white mt-1">
@@ -65,7 +65,7 @@ export default async function BloodBankDashboard() {
             </div>
             <div className="bg-slate-950/40 border border-slate-800 rounded-xl px-5 py-3.5 shrink-0 flex flex-col justify-center">
               <span className="text-xs text-slate-500 block">Hub ID</span>
-              <span className="text-sm font-semibold text-rose-400 font-mono mt-1">
+              <span className="text-sm font-semibold text-primary font-mono mt-1">
                 #LH-{bloodBankProfile.id.slice(-6).toUpperCase()}
               </span>
             </div>
@@ -79,7 +79,7 @@ export default async function BloodBankDashboard() {
               <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Total Inventory</span>
               <span className="text-2xl font-bold text-white mt-1 block">84 Units</span>
             </div>
-            <Database className="h-8 w-8 text-rose-400 opacity-80" />
+            <Database className="h-8 w-8 text-primary opacity-80" />
           </div>
 
           <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-5 shadow-sm hover:border-slate-700 transition-all flex items-center justify-between">
@@ -114,7 +114,7 @@ export default async function BloodBankDashboard() {
               <h3 className="text-lg font-bold text-white">Live Blood Inventory</h3>
               <p className="text-slate-400 text-xs mt-1">Stock status of available blood units categorized by type.</p>
             </div>
-            <button className="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-xs font-semibold flex items-center transition-colors cursor-pointer">
+            <button className="px-3 py-1.5 bg-primary hover:bg-primary/95 text-white rounded-lg text-xs font-semibold flex items-center transition-colors cursor-pointer">
               <Plus className="h-3.5 w-3.5 mr-1" />
               Update Stock
             </button>
@@ -142,7 +142,7 @@ export default async function BloodBankDashboard() {
           <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 shadow-md">
             <div className="flex items-center justify-between mb-5">
               <h3 className="text-base font-bold text-white">Blood Donation Drives</h3>
-              <button className="text-xs text-rose-400 hover:text-rose-300 font-semibold flex items-center">
+              <button className="text-xs text-primary hover:text-primary/90 font-semibold flex items-center">
                 Schedule Drive <ArrowRight className="h-3 w-3 ml-1" />
               </button>
             </div>
@@ -173,7 +173,7 @@ export default async function BloodBankDashboard() {
                 <div className="space-y-1">
                   <div className="flex items-center space-x-2">
                     <span className="text-xs font-bold text-white">City General Hospital</span>
-                    <span className="inline-flex text-[9px] px-1.5 py-0.5 bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded font-semibold">URGENT</span>
+                    <span className="inline-flex text-[9px] px-1.5 py-0.5 bg-secondary/20 text-secondary border border-secondary/30 rounded font-semibold">URGENT</span>
                   </div>
                   <p className="text-[10px] text-slate-400">
                     Needs 4 units of O+ | Requested 15 mins ago
