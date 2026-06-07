@@ -118,11 +118,11 @@ export default function SignupPage() {
     <main className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background Gradients */}
       <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-rose-900/10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-secondary/5 blur-[120px] pointer-events-none" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md z-10">
         <Link href="/" className="flex items-center justify-center space-x-2">
-          <Heart className="h-9 w-9 text-primary fill-primary animate-pulse" />
+          <Heart className="h-9 w-9 text-secondary fill-secondary animate-pulse" />
           <span className="text-2xl font-bold tracking-tight text-white font-sans">
             Pulse<span className="text-primary font-bold">Loop</span>
           </span>
@@ -159,7 +159,7 @@ export default function SignupPage() {
                     onClick={() => { setRole("DONOR"); setError(""); }}
                     className={`flex flex-col items-center justify-center py-3.5 px-3 border rounded-xl text-xs font-medium transition-all ${
                       role === "DONOR"
-                        ? "border-primary bg-rose-950/30 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.15)]"
+                        ? "border-primary bg-primary/10 text-primary shadow-[0_0_15px_rgba(56,189,248,0.1)]"
                         : "border-slate-800 bg-slate-900/20 text-slate-400 hover:border-slate-700 hover:text-slate-200"
                     }`}
                   >
@@ -171,7 +171,7 @@ export default function SignupPage() {
                     onClick={() => { setRole("HOSPITAL"); setError(""); }}
                     className={`flex flex-col items-center justify-center py-3.5 px-3 border rounded-xl text-xs font-medium transition-all ${
                       role === "HOSPITAL"
-                        ? "border-primary bg-rose-950/30 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.15)]"
+                        ? "border-primary bg-primary/10 text-primary shadow-[0_0_15px_rgba(56,189,248,0.1)]"
                         : "border-slate-800 bg-slate-900/20 text-slate-400 hover:border-slate-700 hover:text-slate-200"
                     }`}
                   >
@@ -183,7 +183,7 @@ export default function SignupPage() {
                     onClick={() => { setRole("BLOOD_BANK"); setError(""); }}
                     className={`flex flex-col items-center justify-center py-3.5 px-3 border rounded-xl text-xs font-medium transition-all ${
                       role === "BLOOD_BANK"
-                        ? "border-primary bg-rose-950/30 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.15)]"
+                        ? "border-primary bg-primary/10 text-primary shadow-[0_0_15px_rgba(56,189,248,0.1)]"
                         : "border-slate-800 bg-slate-900/20 text-slate-400 hover:border-slate-700 hover:text-slate-200"
                     }`}
                   >
@@ -351,7 +351,7 @@ export default function SignupPage() {
                       type="button"
                       onClick={detectLocation}
                       disabled={locating}
-                      className="px-3 py-1.5 bg-primary hover:bg-primary/90 text-white rounded-lg text-xs font-semibold flex items-center justify-center transition-colors disabled:opacity-50"
+                      className="px-3 py-1.5 bg-primary hover:bg-primary/90 text-slate-950 rounded-lg text-xs font-semibold flex items-center justify-center transition-colors disabled:opacity-50"
                     >
                       {locating ? (
                         <>
@@ -416,7 +416,7 @@ export default function SignupPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-semibold text-white bg-gradient-to-r from-primary to-rose-600 hover:from-primary/95 hover:to-rose-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950 focus:ring-primary transition-all transform hover:-translate-y-0.5 cursor-pointer disabled:opacity-50 disabled:transform-none"
+                  className="w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-xl shadow-lg text-sm font-semibold text-slate-950 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950 focus:ring-primary transition-all transform hover:-translate-y-0.5 cursor-pointer disabled:opacity-50 disabled:transform-none"
                 >
                   {loading ? (
                     <>

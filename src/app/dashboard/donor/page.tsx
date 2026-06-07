@@ -210,7 +210,7 @@ export default async function DonorDashboard() {
                         <span className="text-xs text-slate-500 block">Needs</span>
                         <span className="text-lg font-bold text-secondary">{donorProfile.bloodGroup}</span>
                       </div>
-                      <button className="px-4 py-2 bg-secondary hover:bg-secondary/90 text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer">
+                      <button className="px-4 py-2 bg-secondary hover:bg-secondary/90 text-slate-950 rounded-lg text-xs font-semibold transition-colors cursor-pointer">
                         Accept Request
                       </button>
                     </div>

@@ -10,56 +10,56 @@
   --popover: 0 0% 100%;
   --popover-foreground: 222 47% 11%;
   
-  --primary: 221.2 83.2% 53.3%; /* Trust Blue / Indigo */
+  --primary: 199 89% 48%; /* Modern Sky Blue */
   --primary-foreground: 210 40% 98%;
   
-  --secondary: 354 81% 63%; /* Soft Coral / Rose */
-  --secondary-foreground: 210 40% 98%;
+  --secondary: 335 100% 75%; /* Warm Pastel Light Pink */
+  --secondary-foreground: 222 47% 11%;
   
   --muted: 210 40% 96.1%;
   --muted-foreground: 215.4 16.3% 46.9%;
   
-  --accent: 220 14% 96%;
-  --accent-foreground: 222 47% 11%;
+  --accent: 335 100% 96%;
+  --accent-foreground: 335 100% 48%;
   
   --destructive: 346.8 84.1% 50.2%;
   --destructive-foreground: 210 40% 98%;
 
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
-  --ring: 221.2 83.2% 53.3%;
+  --ring: 199 89% 48%;
 
   --radius: 0.75rem;
 }
 
 .dark {
-  --background: 222.2 84% 4.9%; /* Deep Navy Slate */
+  --background: 224 25% 6%; /* Premium Slate Charcoal */
   --foreground: 210 40% 98%;
   
-  --card: 222.2 84% 6.5%;
+  --card: 224 25% 8%;
   --card-foreground: 210 40% 98%;
   
-  --popover: 222.2 84% 6.5%;
+  --popover: 224 25% 8%;
   --popover-foreground: 210 40% 98%;
   
-  --primary: 217 91.2% 59.8%; /* Vivid Royal Blue / Indigo */
-  --primary-foreground: 222.2 47% 11.2%;
+  --primary: 199 89% 58%; /* Vivid Sky Blue */
+  --primary-foreground: 224 25% 6%;
   
-  --secondary: 354 81% 63%; /* Warm Coral / Rose */
-  --secondary-foreground: 210 40% 98%;
+  --secondary: 335 100% 80%; /* Pastel Light Pink */
+  --secondary-foreground: 224 25% 6%;
   
-  --muted: 217.2 32.6% 17.5%;
+  --muted: 217.2 32.6% 12%;
   --muted-foreground: 215 20.2% 65.1%;
   
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
+  --accent: 335 30% 12%; /* Dark Pink Accent */
+  --accent-foreground: 335 100% 80%;
   
   --destructive: 346.8 84.1% 50.2%;
   --destructive-foreground: 210 40% 98%;
 
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 217 91.2% 59.8%;
+  --border: 217.2 32.6% 12%;
+  --input: 217.2 32.6% 12%;
+  --ring: 199 89% 58%;
 }
 
 @theme inline {

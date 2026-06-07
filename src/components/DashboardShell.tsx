@@ -58,11 +58,11 @@ export default function DashboardShell({
   const getRoleBadgeColor = () => {
     switch (role) {
       case "DONOR":
-        return "bg-rose-500/10 text-rose-400 border-rose-500/20";
+        return "bg-secondary/15 text-secondary border-secondary/20";
       case "HOSPITAL":
-        return "bg-sky-500/10 text-sky-400 border-sky-500/20";
+        return "bg-primary/15 text-primary border-primary/20";
       case "BLOOD_BANK":
-        return "bg-primary/10 text-primary border-primary/20";
+        return "bg-purple-500/10 text-purple-400 border-purple-500/20";
       default:
         return "bg-slate-500/10 text-slate-400 border-slate-500/20";
     }
