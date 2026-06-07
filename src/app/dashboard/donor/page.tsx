@@ -121,7 +121,7 @@ export default async function DonorDashboard() {
             </div>
 
             <div className="mt-6">
-              <button className="w-full py-2.5 px-4 text-xs font-semibold rounded-xl border border-sky-100 dark:border-sky-900/30 text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-950/20 hover:bg-sky-100/70 dark:hover:bg-sky-900/40 transition-all cursor-pointer">
+              <button className="w-full py-2.5 px-4 text-xs font-semibold rounded-xl border border-sky-200 text-black bg-sky-100 hover:bg-sky-200/85 transition-all cursor-pointer">
                 View Health Recommendations
               </button>
             </div>
