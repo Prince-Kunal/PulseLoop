@@ -3,6 +3,7 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import DashboardShell from "@/components/DashboardShell";
+import DonorSearch from "@/components/DonorSearch";
 import {
   ShieldAlert,
   CalendarDays,
@@ -29,17 +30,40 @@ export default async function BloodBankDashboard() {
     redirect("/auth/signin");
   }
 
-  // Mock blood groups stock data
-  const mockInventory = [
-    { group: "A+", units: 14, color: "from-secondary/15 to-secondary/5 border-secondary/20 text-secondary" },
-    { group: "A-", units: 5, color: "from-muted/40 to-muted/20 border-border text-muted-foreground" },
-    { group: "B+", units: 18, color: "from-secondary/15 to-secondary/5 border-secondary/20 text-secondary" },
-    { group: "B-", units: 3, color: "from-muted/40 to-muted/20 border-border text-muted-foreground" },
-    { group: "AB+", units: 8, color: "from-secondary/15 to-secondary/5 border-secondary/20 text-secondary" },
-    { group: "AB-", units: 2, color: "from-muted/40 to-muted/20 border-border text-muted-foreground" },
-    { group: "O+", units: 25, color: "from-primary/15 to-primary/5 border-primary/20 text-primary" },
-    { group: "O-", units: 9, color: "from-primary/15 to-primary/5 border-primary/20 text-primary" },
+  // Calculate live dynamic stock additions from completed DonationHistory
+  const donations = await prisma.donationHistory.findMany({
+    where: {
+      bloodBankId: bloodBankProfile.id,
+      status: "COMPLETED",
+    },
+  });
+
+  const additionalStock: Record<string, number> = {};
+  donations.forEach((d) => {
+    additionalStock[d.bloodType] = (additionalStock[d.bloodType] || 0) + d.units;
+  });
+
+  const baseInventory = [
+    { group: "A+", baseUnits: 14, color: "from-secondary/15 to-secondary/5 border-secondary/20 text-secondary" },
+    { group: "A-", baseUnits: 5, color: "from-muted/40 to-muted/20 border-border text-muted-foreground" },
+    { group: "B+", baseUnits: 18, color: "from-secondary/15 to-secondary/5 border-secondary/20 text-secondary" },
+    { group: "B-", baseUnits: 3, color: "from-muted/40 to-muted/20 border-border text-muted-foreground" },
+    { group: "AB+", baseUnits: 8, color: "from-secondary/15 to-secondary/5 border-secondary/20 text-secondary" },
+    { group: "AB-", baseUnits: 2, color: "from-muted/40 to-muted/20 border-border text-muted-foreground" },
+    { group: "O+", baseUnits: 25, color: "from-primary/15 to-primary/5 border-primary/20 text-primary" },
+    { group: "O-", baseUnits: 9, color: "from-primary/15 to-primary/5 border-primary/20 text-primary" },
   ];
+
+  const dynamicInventory = baseInventory.map((item) => {
+    const added = additionalStock[item.group] || 0;
+    return {
+      group: item.group,
+      units: item.baseUnits + added,
+      color: item.color,
+    };
+  });
+
+  const totalStockUnits = dynamicInventory.reduce((acc, item) => acc + item.units, 0);
 
   return (
     <DashboardShell
@@ -77,7 +101,7 @@ export default async function BloodBankDashboard() {
           <div className="bg-card border border-border rounded-2xl p-5 shadow-xs hover:border-primary/20 transition-all flex items-center justify-between">
             <div>
               <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block">Total Inventory</span>
-              <span className="text-2xl font-bold text-foreground mt-1 block">84 Units</span>
+              <span className="text-2xl font-bold text-foreground mt-1 block">{totalStockUnits} Units</span>
             </div>
             <Database className="h-8 w-8 text-primary opacity-80" />
           </div>
@@ -107,6 +131,9 @@ export default async function BloodBankDashboard() {
           </div>
         </div>
 
+        {/* Donor Search Portal */}
+        <DonorSearch bloodBankId={bloodBankProfile.id} />
+
         {/* Inventory Stock Grid */}
         <div className="bg-card border border-border rounded-2xl p-6 shadow-md">
           <div className="flex items-center justify-between mb-6">
@@ -121,7 +148,7 @@ export default async function BloodBankDashboard() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {mockInventory.map((item) => (
+            {dynamicInventory.map((item) => (
               <div
                 key={item.group}
                 className={`rounded-xl border bg-gradient-to-br ${item.color} p-4 flex flex-col justify-between h-28`}
