@@ -25,19 +25,27 @@ model User {
 }
 
 model DonorProfile {
-  id                 String    @id @default(cuid())
-  userId             String    @unique
-  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                 String            @id @default(cuid())
+  userId             String            @unique
+  user               User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   fullName           String
   dateOfBirth        DateTime
   phone              String
   latitude           Float
   longitude          Float
   bloodGroup         String
-  bloodGroupVerified Boolean   @default(false)
+  bloodGroupVerified Boolean           @default(false)
   lastDonationDate   DateTime?
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  totalDonations     Int               @default(0)
+  livesImpacted      Int               @default(0)
+  currentStreak      Int               @default(0)
+  longestStreak      Int               @default(0)
+  nextEligibleDate   DateTime?
+  donations          DonationHistory[]
+  badges             Badge[]
+  userRewards        UserReward[]
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
 }
 
 model HospitalProfile {
@@ -52,12 +60,63 @@ model HospitalProfile {
 }
 
 model BloodBankProfile {
-  id            String   @id @default(cuid())
-  userId        String   @unique
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id            String            @id @default(cuid())
+  userId        String            @unique
+  user          User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   bloodBankName String
   latitude      Float
   longitude     Float
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  donations     DonationHistory[]
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+}
+
+model DonationHistory {
+  id           String            @id @default(cuid())
+  donorId      String
+  donor        DonorProfile      @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  bloodBankId  String?
+  bloodBank    BloodBankProfile? @relation(fields: [bloodBankId], references: [id], onDelete: SetNull)
+  donationDate DateTime          @default(now())
+  bloodType    String
+  units        Int               @default(1)
+  status       String            @default("COMPLETED")
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+}
+
+model Badge {
+  id               String         @id @default(cuid())
+  name             String         @unique
+  description      String
+  icon             String
+  requirementType  String
+  requirementValue Int
+  donorProfiles    DonorProfile[]
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+}
+
+model Reward {
+  id          String       @id @default(cuid())
+  name        String
+  description String
+  pointsCost  Int
+  code        String
+  isAvailable Boolean      @default(true)
+  userRewards UserReward[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model UserReward {
+  id         String       @id @default(cuid())
+  donorId    String
+  donor      DonorProfile @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  rewardId   String
+  reward     Reward       @relation(fields: [rewardId], references: [id], onDelete: Cascade)
+  redeemedAt DateTime     @default(now())
+  status     String       @default("REDEEMED")
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 }
