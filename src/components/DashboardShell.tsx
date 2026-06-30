@@ -14,7 +14,9 @@ import {
   Building2,
   Landmark,
   Shield,
-  Activity
+  Activity,
+  Database,
+  Calendar
 } from "lucide-react";
 
 interface DashboardShellProps {
@@ -47,6 +49,9 @@ export default function DashboardShell({
       case "BLOOD_BANK":
         return [
           { name: "Dashboard", href: "/dashboard/blood-bank", icon: LayoutDashboard },
+          { name: "Blood Inventory", href: "/dashboard/blood-bank/inventory", icon: Database },
+          { name: "Record Donation", href: "/dashboard/blood-bank/record", icon: Activity },
+          { name: "Blood Drives", href: "/dashboard/blood-bank/drives", icon: Calendar },
         ];
       default:
         return [];

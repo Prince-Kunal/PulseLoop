@@ -67,6 +67,8 @@ model BloodBankProfile {
   latitude      Float
   longitude     Float
   donations     DonationHistory[]
+  inventory     Inventory[]
+  drives        BloodDrive[]
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
 }
@@ -119,4 +121,32 @@ model UserReward {
   status     String       @default("REDEEMED")
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
+}
+
+model Inventory {
+  id          String           @id @default(cuid())
+  bloodBankId String
+  bloodBank   BloodBankProfile @relation(fields: [bloodBankId], references: [id], onDelete: Cascade)
+  bloodGroup  String
+  units       Int              @default(0)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@unique([bloodBankId, bloodGroup])
+}
+
+model BloodDrive {
+  id          String           @id @default(cuid())
+  title       String
+  description String
+  date        DateTime
+  startTime   String
+  endTime     String
+  latitude    Float
+  longitude   Float
+  capacity    Int
+  organizerId String
+  organizer   BloodBankProfile @relation(fields: [organizerId], references: [id], onDelete: Cascade)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
 }

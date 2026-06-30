@@ -17,6 +17,8 @@ async function main() {
   await prisma.donationHistory.deleteMany({});
   await prisma.donorProfile.deleteMany({});
   await prisma.hospitalProfile.deleteMany({});
+  await prisma.inventory.deleteMany({});
+  await prisma.bloodDrive.deleteMany({});
   await prisma.bloodBankProfile.deleteMany({});
   await prisma.user.deleteMany({});
   await prisma.badge.deleteMany({});
@@ -132,6 +134,102 @@ async function main() {
     },
     include: { bloodBankProfile: true },
   });
+  
+  // Seeding inventories for blood banks
+  console.log("Seeding Inventories...");
+  if (bank1User.bloodBankProfile) {
+    const baseStock = [
+      { group: "A+", units: 14 },
+      { group: "A-", units: 5 },
+      { group: "B+", units: 18 },
+      { group: "B-", units: 3 },
+      { group: "AB+", units: 8 },
+      { group: "AB-", units: 2 },
+      { group: "O+", units: 25 },
+      { group: "O-", units: 9 },
+    ];
+    await Promise.all(
+      baseStock.map((item) =>
+        prisma.inventory.create({
+          data: {
+            bloodBankId: bank1User.bloodBankProfile!.id,
+            bloodGroup: item.group,
+            units: item.units,
+          },
+        })
+      )
+    );
+  }
+
+  if (bank2User.bloodBankProfile) {
+    const baseStock = [
+      { group: "A+", units: 10 },
+      { group: "A-", units: 3 },
+      { group: "B+", units: 12 },
+      { group: "B-", units: 2 },
+      { group: "AB+", units: 6 },
+      { group: "AB-", units: 1 },
+      { group: "O+", units: 15 },
+      { group: "O-", units: 5 },
+    ];
+    await Promise.all(
+      baseStock.map((item) =>
+        prisma.inventory.create({
+          data: {
+            bloodBankId: bank2User.bloodBankProfile!.id,
+            bloodGroup: item.group,
+            units: item.units,
+          },
+        })
+      )
+    );
+  }
+
+  // Seeding blood drives
+  console.log("Seeding Blood Drives...");
+  if (bank1User.bloodBankProfile) {
+    await prisma.bloodDrive.create({
+      data: {
+        title: "Summer LifeSaver Drive",
+        description: "Join us for our annual Summer LifeSaver blood drive. All successful donors will receive free coffee and custom badges. Spread the word and save lives!",
+        date: new Date("2026-07-15T09:00:00Z"),
+        startTime: "09:00 AM",
+        endTime: "05:00 PM",
+        latitude: 40.7128,
+        longitude: -74.006,
+        capacity: 50,
+        organizerId: bank1User.bloodBankProfile.id,
+      },
+    });
+
+    await prisma.bloodDrive.create({
+      data: {
+        title: "Metro Plaza Emergency Drive",
+        description: "Urgent drive to replenish O negative and B negative blood group inventory. Walk-ins welcome.",
+        date: new Date("2026-07-28T10:00:00Z"),
+        startTime: "10:00 AM",
+        endTime: "04:00 PM",
+        latitude: 40.7306,
+        longitude: -73.9352,
+        capacity: 35,
+        organizerId: bank1User.bloodBankProfile.id,
+      },
+    });
+    
+    await prisma.bloodDrive.create({
+      data: {
+        title: "Spring Hope Donation Camp",
+        description: "Spring camp organized by City Red Cross Hub.",
+        date: new Date("2026-04-10T09:00:00Z"),
+        startTime: "09:00 AM",
+        endTime: "05:00 PM",
+        latitude: 40.7128,
+        longitude: -74.006,
+        capacity: 60,
+        organizerId: bank1User.bloodBankProfile.id,
+      },
+    });
+  }
 
   // 2. Seed Hospitals
   await prisma.user.create({

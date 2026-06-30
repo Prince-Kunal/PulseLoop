@@ -144,6 +144,26 @@ export async function recordDonation(input: RecordDonationInput) {
       );
     }
 
+    // 10. Increase inventory for the donor's blood group (if blood bank is linked)
+    if (input.bloodBankId) {
+      await tx.inventory.upsert({
+        where: {
+          bloodBankId_bloodGroup: {
+            bloodBankId: input.bloodBankId,
+            bloodGroup: donor.bloodGroup,
+          },
+        },
+        update: {
+          units: { increment: units },
+        },
+        create: {
+          bloodBankId: input.bloodBankId,
+          bloodGroup: donor.bloodGroup,
+          units: units,
+        },
+      });
+    }
+
     return {
       donation,
       stats: {
