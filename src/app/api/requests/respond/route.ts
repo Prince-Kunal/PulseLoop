@@ -83,6 +83,21 @@ export async function POST(request: Request) {
           },
         });
 
+        // Log timeline events
+        await tx.requestTimeline.create({
+          data: {
+            bloodRequestId: requestId,
+            event: "BLOOD_BANK_ACCEPTED",
+          },
+        });
+
+        await tx.requestTimeline.create({
+          data: {
+            bloodRequestId: requestId,
+            event: "INVENTORY_CHECKED",
+          },
+        });
+
         return { success: true, request: updatedRequest };
       }
 

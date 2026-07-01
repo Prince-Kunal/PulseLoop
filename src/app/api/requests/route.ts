@@ -65,16 +65,27 @@ export async function POST(request: Request) {
     }
 
     // Save request to database
-    const newRequest = await prisma.bloodRequest.create({
-      data: {
-        hospitalId,
-        bloodGroup,
-        unitsRequired: units,
-        urgency, // "LOW", "MEDIUM", "HIGH", "CRITICAL"
-        notes: notes || null,
-        patientAge: age,
-        status: "PENDING",
-      },
+    const newRequest = await prisma.$transaction(async (tx) => {
+      const record = await tx.bloodRequest.create({
+        data: {
+          hospitalId,
+          bloodGroup,
+          unitsRequired: units,
+          urgency, // "LOW", "MEDIUM", "HIGH", "CRITICAL"
+          notes: notes || null,
+          patientAge: age,
+          status: "PENDING",
+        },
+      });
+
+      await tx.requestTimeline.create({
+        data: {
+          bloodRequestId: record.id,
+          event: "HOSPITAL_CREATED_REQUEST",
+        },
+      });
+
+      return record;
     });
 
     return NextResponse.json({ success: true, request: newRequest }, { status: 201 });

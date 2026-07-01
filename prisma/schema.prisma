@@ -27,37 +27,41 @@ model User {
 model DonorProfile {
   id                 String            @id @default(cuid())
   userId             String            @unique
-  user               User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   fullName           String
   dateOfBirth        DateTime
   phone              String
   latitude           Float
   longitude          Float
   bloodGroup         String
-  bloodGroupVerified Boolean           @default(false)
+  bloodGroupVerified Boolean             @default(false)
   lastDonationDate   DateTime?
-  totalDonations     Int               @default(0)
-  livesImpacted      Int               @default(0)
-  currentStreak      Int               @default(0)
-  longestStreak      Int               @default(0)
+  totalDonations     Int                 @default(0)
+  livesImpacted      Int                 @default(0)
+  currentStreak      Int                 @default(0)
+  longestStreak      Int                 @default(0)
   nextEligibleDate   DateTime?
+  lastActiveAt       DateTime?           @default(now())
   donations          DonationHistory[]
   badges             Badge[]
   userRewards        UserReward[]
-  createdAt          DateTime          @default(now())
-  updatedAt          DateTime          @updatedAt
+  notifications      Notification[]
+  responses          EmergencyResponse[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
 }
 
 model HospitalProfile {
-  id           String         @id @default(cuid())
-  userId       String         @unique
-  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  hospitalName String
-  latitude     Float
-  longitude    Float
-  requests     BloodRequest[]
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  id            String         @id @default(cuid())
+  userId        String         @unique
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hospitalName  String
+  latitude      Float
+  longitude     Float
+  requests      BloodRequest[]
+  notifications Notification[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model BloodBankProfile {
@@ -165,6 +169,41 @@ model BloodRequest {
   status        String            @default("PENDING") // "PENDING", "ACCEPTED", "IN_PROGRESS", "FULFILLED", "REJECTED", "EXPIRED"
   bloodBankId   String?
   bloodBank     BloodBankProfile? @relation(fields: [bloodBankId], references: [id], onDelete: SetNull)
+  timeline      RequestTimeline[]
+  notifications Notification[]
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
+}
+
+model Notification {
+  id             String              @id @default(cuid())
+  donorId        String
+  donor          DonorProfile        @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  bloodRequestId String
+  bloodRequest   BloodRequest        @relation(fields: [bloodRequestId], references: [id], onDelete: Cascade)
+  hospitalId     String
+  hospital       HospitalProfile     @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
+  title          String
+  message        String
+  status         String              @default("SENT") // "SENT", "RESPONDED"
+  createdAt      DateTime            @default(now())
+  responses      EmergencyResponse[]
+}
+
+model EmergencyResponse {
+  id             String       @id @default(cuid())
+  notificationId String
+  notification   Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+  donorId        String
+  donor          DonorProfile @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  response       String       // "AVAILABLE", "UNAVAILABLE"
+  respondedAt    DateTime     @default(now())
+}
+
+model RequestTimeline {
+  id             String       @id @default(cuid())
+  bloodRequestId String
+  bloodRequest   BloodRequest @relation(fields: [bloodRequestId], references: [id], onDelete: Cascade)
+  event          String       // "HOSPITAL_CREATED_REQUEST", "BLOOD_BANK_ACCEPTED", etc.
+  timestamp      DateTime     @default(now())
 }

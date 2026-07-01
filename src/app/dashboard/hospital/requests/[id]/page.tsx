@@ -11,11 +11,9 @@ import {
   Clock,
   MapPin,
   Building,
-  User,
   CheckCircle2,
   HelpCircle,
-  XCircle,
-  AlertCircle
+  XCircle
 } from "lucide-react";
 
 export default async function RequestDetailsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -48,6 +46,12 @@ export default async function RequestDetailsPage({ params }: { params: Promise<{
   if (!requestRecord || requestRecord.hospitalId !== hospitalProfile.id) {
     redirect("/dashboard/hospital/requests");
   }
+
+  // Query actual timeline logs from database
+  const dbTimeline = await prisma.requestTimeline.findMany({
+    where: { bloodRequestId: id },
+    orderBy: { timestamp: "asc" },
+  });
 
   // Setup status styles
   const getStatusBadge = (status: string) => {
@@ -84,51 +88,71 @@ export default async function RequestDetailsPage({ params }: { params: Promise<{
     }
   };
 
-  // Stepper timeline configuration
-  const getTimelineSteps = (status: string) => {
+  // Generate dynamic steps based on database timeline events
+  const getTimelineSteps = () => {
+    const hasEvent = (evt: string) => dbTimeline.some((t) => t.event === evt);
+    const getEventTime = (evt: string) => {
+      const entry = dbTimeline.find((t) => t.event === evt);
+      return entry ? new Date(entry.timestamp).toLocaleString() : null;
+    };
+
+    const status = requestRecord.status;
     const isRejected = status === "REJECTED";
     const isExpired = status === "EXPIRED";
 
     return [
       {
-        title: "Request Raised",
-        description: "Blood request has been logged in PulseLoop operations.",
+        title: "Hospital Created Request",
+        description: "Blood request has been registered and broadcast to local banks.",
         completed: true,
-        current: false,
+        time: getEventTime("HOSPITAL_CREATED_REQUEST") || new Date(requestRecord.createdAt).toLocaleString(),
       },
       {
-        title: "Blood Banks Notified",
-        description: "Broadcast alerts sent to all nearby blood bank hubs.",
-        completed: true,
-        current: status === "PENDING",
+        title: isRejected ? "Request Rejected" : "Blood Bank Accepted",
+        description: isRejected
+          ? "Request rejected due to stock deficits or operations."
+          : "A regional blood bank has accepted to fulfill this request.",
+        completed: hasEvent("BLOOD_BANK_ACCEPTED") || ["ACCEPTED", "IN_PROGRESS", "FULFILLED"].includes(status),
+        time: getEventTime("BLOOD_BANK_ACCEPTED"),
+        failed: isRejected,
       },
       {
-        title: isRejected ? "Request Rejected" : (isExpired ? "Request Expired" : "Accepted by Blood Bank"),
-        description: isRejected 
-          ? "Request rejected due to stock shortage or operational reasons." 
-          : (isExpired ? "Request expired without response." : "A nearby blood bank hub has accepted to fulfill the request."),
-        completed: ["ACCEPTED", "IN_PROGRESS", "FULFILLED"].includes(status),
-        current: status === "ACCEPTED",
-        failed: isRejected || isExpired,
+        title: "Inventory Checked",
+        description: "Blood bank verified stock level constraints.",
+        completed: hasEvent("INVENTORY_CHECKED") || ["ACCEPTED", "IN_PROGRESS", "FULFILLED"].includes(status),
+        time: getEventTime("INVENTORY_CHECKED"),
       },
       {
-        title: "Processing & Checked",
-        description: "Blood units matches and safety checks are in progress.",
-        completed: ["IN_PROGRESS", "FULFILLED"].includes(status),
-        current: status === "IN_PROGRESS",
-        skipped: isRejected || isExpired,
+        title: "Priority List Generated",
+        description: "Calculated donor rankings and scoring matrix.",
+        completed: hasEvent("PRIORITY_LIST_GENERATED"),
+        time: getEventTime("PRIORITY_LIST_GENERATED"),
       },
       {
-        title: "Delivered & Fulfilled",
-        description: "Blood units successfully delivered to the hospital ward.",
-        completed: status === "FULFILLED",
-        current: false,
-        skipped: isRejected || isExpired,
+        title: "Notifications Sent",
+        description: "Emergency broadcast notifications dispatched to eligible donors.",
+        completed: hasEvent("NOTIFICATIONS_SENT"),
+        time: getEventTime("NOTIFICATIONS_SENT"),
+      },
+      {
+        title: "Donor Accepted",
+        description: "A donor has responded availability constraints to assist.",
+        completed: hasEvent("DONOR_ACCEPTED"),
+        time: getEventTime("DONOR_ACCEPTED"),
+      },
+      {
+        title: isExpired ? "Request Expired" : "Request Fulfilled",
+        description: isExpired
+          ? "Request expired without full matching support."
+          : "Blood packages delivered and matching completed.",
+        completed: hasEvent("REQUEST_FULFILLED") || status === "FULFILLED",
+        time: getEventTime("REQUEST_FULFILLED"),
+        failed: isExpired,
       },
     ];
   };
 
-  const steps = getTimelineSteps(requestRecord.status);
+  const steps = getTimelineSteps();
 
   return (
     <DashboardShell
@@ -171,7 +195,7 @@ export default async function RequestDetailsPage({ params }: { params: Promise<{
           <div className="lg:col-span-2 bg-card border border-border rounded-2xl p-6 shadow-md space-y-6">
             <h3 className="text-base font-bold text-foreground pb-3 border-b border-border">Request Status Timeline</h3>
 
-            {/* Stepper Stepper */}
+            {/* Stepper Timeline */}
             <div className="relative border-l-2 border-border ml-3.5 pl-6 space-y-6 pb-2">
               {steps.map((step, idx) => {
                 const getStepIndicator = () => {
@@ -189,20 +213,6 @@ export default async function RequestDetailsPage({ params }: { params: Promise<{
                       </div>
                     );
                   }
-                  if (step.current) {
-                    return (
-                      <div className="absolute -left-9 top-0.5 h-6 w-6 rounded-full bg-primary/20 border border-primary text-primary flex items-center justify-center animate-pulse">
-                        <AlertCircle className="h-4.5 w-4.5 fill-primary text-white" />
-                      </div>
-                    );
-                  }
-                  if (step.skipped) {
-                    return (
-                      <div className="absolute -left-9 top-0.5 h-6 w-6 rounded-full bg-muted border border-border text-muted-foreground/60 flex items-center justify-center">
-                        <XCircle className="h-4 w-4" />
-                      </div>
-                    );
-                  }
                   return (
                     <div className="absolute -left-9 top-0.5 h-6 w-6 rounded-full bg-card border border-border text-muted-foreground flex items-center justify-center">
                       <HelpCircle className="h-4 w-4" />
@@ -214,13 +224,18 @@ export default async function RequestDetailsPage({ params }: { params: Promise<{
                   <div key={idx} className="relative space-y-1">
                     {getStepIndicator()}
                     <h4 className={`text-xs font-bold ${
-                      step.completed ? "text-foreground" : (step.failed ? "text-red-600 font-extrabold" : (step.current ? "text-primary font-extrabold" : "text-muted-foreground"))
+                      step.completed ? "text-foreground" : (step.failed ? "text-red-600 font-extrabold" : "text-muted-foreground")
                     }`}>
                       {step.title}
                     </h4>
                     <p className="text-[11px] text-muted-foreground/90 leading-relaxed">
                       {step.description}
                     </p>
+                    {step.time && (
+                      <span className="text-[9px] font-mono text-primary font-bold block pt-0.5">
+                        Logged: {step.time}
+                      </span>
+                    )}
                   </div>
                 );
               })}

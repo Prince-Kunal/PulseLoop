@@ -12,6 +12,9 @@ async function main() {
   console.log("Cleaning up database...");
 
   // Delete in order of dependency to prevent foreign key constraint issues
+  await prisma.emergencyResponse.deleteMany({});
+  await prisma.notification.deleteMany({});
+  await prisma.requestTimeline.deleteMany({});
   await prisma.userReward.deleteMany({});
   await prisma.reward.deleteMany({});
   await prisma.donationHistory.deleteMany({});
@@ -263,9 +266,10 @@ async function main() {
 
   // Seeding Blood Requests
   console.log("Seeding Blood Requests...");
+  let req1: any, req2: any, req3: any, req4: any;
   if (hospital1User.hospitalProfile) {
     // 1. Pending Request
-    await prisma.bloodRequest.create({
+    req1 = await prisma.bloodRequest.create({
       data: {
         hospitalId: hospital1User.hospitalProfile.id,
         bloodGroup: "O-",
@@ -278,7 +282,7 @@ async function main() {
     });
 
     // 2. Accepted/In Progress Request
-    await prisma.bloodRequest.create({
+    req2 = await prisma.bloodRequest.create({
       data: {
         hospitalId: hospital1User.hospitalProfile.id,
         bloodGroup: "A+",
@@ -292,7 +296,7 @@ async function main() {
     });
 
     // 3. Fulfilled Request
-    await prisma.bloodRequest.create({
+    req3 = await prisma.bloodRequest.create({
       data: {
         hospitalId: hospital1User.hospitalProfile.id,
         bloodGroup: "AB-",
@@ -308,7 +312,7 @@ async function main() {
 
   if (hospital2User.hospitalProfile) {
     // 4. Pending request for hospital 2
-    await prisma.bloodRequest.create({
+    req4 = await prisma.bloodRequest.create({
       data: {
         hospitalId: hospital2User.hospitalProfile.id,
         bloodGroup: "B+",
@@ -488,6 +492,174 @@ async function main() {
         donorId: donor1User.donorProfile.id,
         rewardId: rewards[0].id, // Free Coffee Voucher
         status: "REDEEMED",
+      },
+    });
+  }
+
+  console.log("Seeding Priority Eligible Donors (O-)...");
+  // 1. Emma Watson (O-)
+  const donor4User = await prisma.user.create({
+    data: {
+      email: "emma@pulseloop.org",
+      password: hashedPassword,
+      role: Role.DONOR,
+      donorProfile: {
+        create: {
+          fullName: "Emma Watson",
+          dateOfBirth: new Date("1996-04-15"),
+          phone: "+1 (555) 018-7253",
+          latitude: 40.7306,
+          longitude: -73.9352,
+          bloodGroup: "O-",
+          bloodGroupVerified: true,
+          totalDonations: 6,
+          livesImpacted: 18,
+          currentStreak: 2,
+          longestStreak: 3,
+          nextEligibleDate: new Date("2026-06-10"), // Eligible
+          lastActiveAt: new Date("2026-06-25"), // Active recently (bonus)
+        },
+      },
+    },
+    include: { donorProfile: true },
+  });
+
+  // 2. Robert Downey (O-)
+  const donor5User = await prisma.user.create({
+    data: {
+      email: "robert@pulseloop.org",
+      password: hashedPassword,
+      role: Role.DONOR,
+      donorProfile: {
+        create: {
+          fullName: "Robert Downey",
+          dateOfBirth: new Date("1990-08-08"),
+          phone: "+1 (555) 011-8899",
+          latitude: 40.7589,
+          longitude: -73.9851,
+          bloodGroup: "O-",
+          bloodGroupVerified: true,
+          totalDonations: 11,
+          livesImpacted: 33,
+          currentStreak: 5,
+          longestStreak: 5,
+          nextEligibleDate: new Date("2026-05-20"), // Eligible
+          lastActiveAt: new Date("2026-06-29"), // Active recently (bonus)
+        },
+      },
+    },
+    include: { donorProfile: true },
+  });
+
+  console.log("Seeding Timelines for Blood Requests...");
+  // req1 (O- Pending)
+  if (req1) {
+    await prisma.requestTimeline.create({
+      data: {
+        bloodRequestId: req1.id,
+        event: "HOSPITAL_CREATED_REQUEST",
+        timestamp: new Date("2026-07-01T08:00:00Z"),
+      },
+    });
+  }
+
+  // req2 (A+ In Progress)
+  if (req2) {
+    await prisma.requestTimeline.create({
+      data: {
+        bloodRequestId: req2.id,
+        event: "HOSPITAL_CREATED_REQUEST",
+        timestamp: new Date("2026-07-01T09:00:00Z"),
+      },
+    });
+    await prisma.requestTimeline.create({
+      data: {
+        bloodRequestId: req2.id,
+        event: "BLOOD_BANK_ACCEPTED",
+        timestamp: new Date("2026-07-01T09:30:00Z"),
+      },
+    });
+    await prisma.requestTimeline.create({
+      data: {
+        bloodRequestId: req2.id,
+        event: "INVENTORY_CHECKED",
+        timestamp: new Date("2026-07-01T09:31:00Z"),
+      },
+    });
+  }
+
+  // req3 (AB- Fulfilled)
+  if (req3) {
+    await prisma.requestTimeline.create({
+      data: {
+        bloodRequestId: req3.id,
+        event: "HOSPITAL_CREATED_REQUEST",
+        timestamp: new Date("2026-07-01T10:00:00Z"),
+      },
+    });
+    await prisma.requestTimeline.create({
+      data: {
+        bloodRequestId: req3.id,
+        event: "BLOOD_BANK_ACCEPTED",
+        timestamp: new Date("2026-07-01T10:15:00Z"),
+      },
+    });
+    await prisma.requestTimeline.create({
+      data: {
+        bloodRequestId: req3.id,
+        event: "INVENTORY_CHECKED",
+        timestamp: new Date("2026-07-01T10:16:00Z"),
+      },
+    });
+    await prisma.requestTimeline.create({
+      data: {
+        bloodRequestId: req3.id,
+        event: "PRIORITY_LIST_GENERATED",
+        timestamp: new Date("2026-07-01T10:20:00Z"),
+      },
+    });
+    await prisma.requestTimeline.create({
+      data: {
+        bloodRequestId: req3.id,
+        event: "NOTIFICATIONS_SENT",
+        timestamp: new Date("2026-07-01T10:21:00Z"),
+      },
+    });
+    await prisma.requestTimeline.create({
+      data: {
+        bloodRequestId: req3.id,
+        event: "DONOR_ACCEPTED",
+        timestamp: new Date("2026-07-01T10:45:00Z"),
+      },
+    });
+    await prisma.requestTimeline.create({
+      data: {
+        bloodRequestId: req3.id,
+        event: "REQUEST_FULFILLED",
+        timestamp: new Date("2026-07-01T11:00:00Z"),
+      },
+    });
+  }
+
+  console.log("Seeding Test Notifications and Responses...");
+  // Emma Watson test notification response rate (AVAILABLE -> 100%)
+  if (donor4User.donorProfile && req3 && hospital1User.hospitalProfile) {
+    const testNotif = await prisma.notification.create({
+      data: {
+        donorId: donor4User.donorProfile.id,
+        bloodRequestId: req3.id,
+        hospitalId: hospital1User.hospitalProfile.id,
+        title: "Emergency Alert",
+        message: "Test notification message",
+        status: "RESPONDED",
+      },
+    });
+
+    await prisma.emergencyResponse.create({
+      data: {
+        notificationId: testNotif.id,
+        donorId: donor4User.donorProfile.id,
+        response: "AVAILABLE",
       },
     });
   }
