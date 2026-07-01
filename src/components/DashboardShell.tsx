@@ -45,6 +45,7 @@ export default function DashboardShell({
       case "HOSPITAL":
         return [
           { name: "Dashboard", href: "/dashboard/hospital", icon: LayoutDashboard },
+          { name: "Blood Requests", href: "/dashboard/hospital/requests", icon: Activity },
         ];
       case "BLOOD_BANK":
         return [

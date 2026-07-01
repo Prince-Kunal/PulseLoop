@@ -16,6 +16,7 @@ async function main() {
   await prisma.reward.deleteMany({});
   await prisma.donationHistory.deleteMany({});
   await prisma.donorProfile.deleteMany({});
+  await prisma.bloodRequest.deleteMany({});
   await prisma.hospitalProfile.deleteMany({});
   await prisma.inventory.deleteMany({});
   await prisma.bloodDrive.deleteMany({});
@@ -148,17 +149,15 @@ async function main() {
       { group: "O+", units: 25 },
       { group: "O-", units: 9 },
     ];
-    await Promise.all(
-      baseStock.map((item) =>
-        prisma.inventory.create({
-          data: {
-            bloodBankId: bank1User.bloodBankProfile!.id,
-            bloodGroup: item.group,
-            units: item.units,
-          },
-        })
-      )
-    );
+    for (const item of baseStock) {
+      await prisma.inventory.create({
+        data: {
+          bloodBankId: bank1User.bloodBankProfile!.id,
+          bloodGroup: item.group,
+          units: item.units,
+        },
+      });
+    }
   }
 
   if (bank2User.bloodBankProfile) {
@@ -172,17 +171,15 @@ async function main() {
       { group: "O+", units: 15 },
       { group: "O-", units: 5 },
     ];
-    await Promise.all(
-      baseStock.map((item) =>
-        prisma.inventory.create({
-          data: {
-            bloodBankId: bank2User.bloodBankProfile!.id,
-            bloodGroup: item.group,
-            units: item.units,
-          },
-        })
-      )
-    );
+    for (const item of baseStock) {
+      await prisma.inventory.create({
+        data: {
+          bloodBankId: bank2User.bloodBankProfile!.id,
+          bloodGroup: item.group,
+          units: item.units,
+        },
+      });
+    }
   }
 
   // Seeding blood drives
@@ -232,7 +229,7 @@ async function main() {
   }
 
   // 2. Seed Hospitals
-  await prisma.user.create({
+  const hospital1User = await prisma.user.create({
     data: {
       email: "stmary@pulseloop.org",
       password: hashedPassword,
@@ -245,9 +242,10 @@ async function main() {
         },
       },
     },
+    include: { hospitalProfile: true },
   });
 
-  await prisma.user.create({
+  const hospital2User = await prisma.user.create({
     data: {
       email: "childrens@pulseloop.org",
       password: hashedPassword,
@@ -260,7 +258,68 @@ async function main() {
         },
       },
     },
+    include: { hospitalProfile: true },
   });
+
+  // Seeding Blood Requests
+  console.log("Seeding Blood Requests...");
+  if (hospital1User.hospitalProfile) {
+    // 1. Pending Request
+    await prisma.bloodRequest.create({
+      data: {
+        hospitalId: hospital1User.hospitalProfile.id,
+        bloodGroup: "O-",
+        unitsRequired: 3,
+        urgency: "CRITICAL",
+        notes: "Emergency ICU patient requiring immediate O negative blood transfusion due to severe internal trauma. Please expedite.",
+        patientAge: 45,
+        status: "PENDING",
+      },
+    });
+
+    // 2. Accepted/In Progress Request
+    await prisma.bloodRequest.create({
+      data: {
+        hospitalId: hospital1User.hospitalProfile.id,
+        bloodGroup: "A+",
+        unitsRequired: 5,
+        urgency: "HIGH",
+        notes: "Patient undergoing planned cardiovascular bypass procedure tomorrow morning.",
+        patientAge: 62,
+        status: "IN_PROGRESS",
+        bloodBankId: bank1User.bloodBankProfile?.id,
+      },
+    });
+
+    // 3. Fulfilled Request
+    await prisma.bloodRequest.create({
+      data: {
+        hospitalId: hospital1User.hospitalProfile.id,
+        bloodGroup: "AB-",
+        unitsRequired: 1,
+        urgency: "MEDIUM",
+        notes: "Oncology ward replenishment.",
+        patientAge: 29,
+        status: "FULFILLED",
+        bloodBankId: bank1User.bloodBankProfile?.id,
+      },
+    });
+  }
+
+  if (hospital2User.hospitalProfile) {
+    // 4. Pending request for hospital 2
+    await prisma.bloodRequest.create({
+      data: {
+        hospitalId: hospital2User.hospitalProfile.id,
+        bloodGroup: "B+",
+        unitsRequired: 2,
+        urgency: "LOW",
+        notes: "Anemia treatment replacement units.",
+        patientAge: 12,
+        status: "PENDING",
+      },
+    });
+  }
 
   // 3. Seed Donors
   const donor1User = await prisma.user.create({

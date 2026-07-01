@@ -3,9 +3,9 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import DashboardShell from "@/components/DashboardShell";
-import HospitalDashboardClient from "@/components/HospitalDashboardClient";
+import RequestsManager from "@/components/RequestsManager";
 
-export default async function HospitalDashboard() {
+export default async function HospitalRequestsPage() {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -21,7 +21,7 @@ export default async function HospitalDashboard() {
     redirect("/auth/signin");
   }
 
-  // Fetch actual requests raised by this hospital
+  // Query actual database blood requests raised by this hospital
   const requests = await prisma.bloodRequest.findMany({
     where: { hospitalId: hospitalProfile.id },
     orderBy: { createdAt: "desc" },
@@ -33,11 +33,8 @@ export default async function HospitalDashboard() {
       userEmail={session.user.email}
       userName={hospitalProfile.hospitalName}
     >
-      <HospitalDashboardClient
+      <RequestsManager
         hospitalId={hospitalProfile.id}
-        hospitalName={hospitalProfile.hospitalName}
-        latitude={hospitalProfile.latitude}
-        longitude={hospitalProfile.longitude}
         initialRequests={requests}
       />
     </DashboardShell>
