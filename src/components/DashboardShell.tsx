@@ -53,6 +53,7 @@ export default function DashboardShell({
           { name: "Blood Inventory", href: "/dashboard/blood-bank/inventory", icon: Database },
           { name: "Record Donation", href: "/dashboard/blood-bank/record", icon: Activity },
           { name: "Blood Drives", href: "/dashboard/blood-bank/drives", icon: Calendar },
+          { name: "Hospital Requests", href: "/dashboard/blood-bank/requests", icon: Building2 },
         ];
       default:
         return [];
