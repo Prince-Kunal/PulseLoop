@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {
-  Heart,
   Activity,
   Users,
   Compass,
@@ -11,6 +10,7 @@ import {
   Layers,
   HeartHandshake
 } from "lucide-react";
+import Logo from "@/components/Logo";
 
 export default function Home() {
   return (
@@ -22,7 +22,7 @@ export default function Home() {
       {/* Navigation Bar */}
       <header className="h-20 border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-50 flex items-center justify-between px-6 md:px-12 max-w-7xl w-full mx-auto">
         <Link href="/" className="flex items-center space-x-2">
-          <Heart className="h-8 w-8 text-primary fill-primary animate-pulse" />
+          <Logo size="sm" className="h-8 w-8" />
           <span className="text-xl font-bold tracking-tight text-foreground">
             Pulse<span className="text-primary font-bold">Loop</span>
           </span>
@@ -238,7 +238,7 @@ export default function Home() {
       <footer className="mt-auto border-t border-border py-12 px-6 md:px-12 text-center text-muted-foreground text-xs bg-muted/10">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-1.5">
-            <Heart className="h-4 w-4 text-primary fill-primary" />
+            <Logo size="sm" className="h-4 w-4" />
             <span className="font-semibold text-foreground">PulseLoop © 2026</span>
           </div>
           <p>Connecting emergency blood loops to save lives.</p>

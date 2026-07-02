@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Logo from "./Logo";
 import {
   Heart,
   LayoutDashboard,
@@ -132,7 +133,7 @@ export default function DashboardShell({
       {/* Branding Header */}
       <div className="h-16 flex items-center px-6 border-b border-border shrink-0">
         <Link href="/" className="flex items-center space-x-2">
-          <Heart className="h-7 w-7 text-primary fill-primary animate-pulse" />
+          <Logo size="sm" className="h-7 w-7" />
           <span className="text-xl font-bold tracking-tight text-foreground font-sans">
             Pulse<span className="text-primary font-bold">Loop</span>
           </span>
@@ -182,6 +183,43 @@ export default function DashboardShell({
         })}
       </nav>
 
+      {/* Role-Specific Promo Card */}
+      <div className="px-4 py-2 shrink-0">
+        {role === "DONOR" && (
+          <div className="p-4 bg-red-500/5 border border-red-500/10 rounded-2xl space-y-2 text-center">
+            <p className="text-[11px] font-bold text-foreground">You are eligible to donate!</p>
+            <p className="text-[10px] text-muted-foreground">Your next donation can be registered immediately.</p>
+            <div className="flex justify-center pt-1">
+              <span className="inline-flex h-8 w-8 rounded-full bg-red-500/10 items-center justify-center text-red-500 text-sm">❤️</span>
+            </div>
+          </div>
+        )}
+        {role === "HOSPITAL" && (
+          <div className="p-4 bg-primary/5 border border-primary/10 rounded-2xl space-y-2">
+            <p className="text-[11px] font-bold text-foreground text-center">Need Blood Urgently?</p>
+            <p className="text-[10px] text-muted-foreground text-center">Raise a request and get connected to nearby blood banks.</p>
+            <Link
+              href="/dashboard/hospital"
+              className="block text-center py-1.5 bg-primary hover:bg-primary/95 text-primary-foreground text-[10px] font-bold rounded-xl transition-all shadow-xs"
+            >
+              Raise Request
+            </Link>
+          </div>
+        )}
+        {role === "BLOOD_BANK" && (
+          <div className="p-4 bg-purple-500/5 border border-purple-500/10 rounded-2xl space-y-2">
+            <p className="text-[11px] font-bold text-foreground text-center">Resolve Requests?</p>
+            <p className="text-[10px] text-muted-foreground text-center">Check hospital requests and generate priority ranking lists.</p>
+            <Link
+              href="/dashboard/blood-bank/requests"
+              className="block text-center py-1.5 bg-purple-600 hover:bg-purple-700 text-white text-[10px] font-bold rounded-xl transition-all shadow-xs"
+            >
+              View Requests
+            </Link>
+          </div>
+        )}
+      </div>
+
       {/* Footer Log Out */}
       <div className="p-4 border-t border-border shrink-0">
         <button
@@ -209,7 +247,7 @@ export default function DashboardShell({
       {/* Mobile Header */}
       <div className="md:hidden flex h-16 items-center justify-between px-6 border-b border-border bg-card shrink-0 z-20">
         <Link href="/" className="flex items-center space-x-2">
-          <Heart className="h-6 w-6 text-primary fill-primary animate-pulse" />
+          <Logo size="sm" className="h-6 w-6" />
           <span className="text-lg font-bold tracking-tight text-foreground font-sans">
             Pulse<span className="text-primary font-bold">Loop</span>
           </span>

@@ -4,7 +4,8 @@ import { useState, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Heart, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import Logo from "@/components/Logo";
 
 function SignInForm() {
   const router = useRouter();
@@ -127,7 +128,7 @@ export default function SigninPage() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md z-10">
         <Link href="/" className="flex items-center justify-center space-x-2">
-          <Heart className="h-9 w-9 text-primary fill-primary animate-pulse" />
+          <Logo size="md" className="h-9 w-9" />
           <span className="text-2xl font-bold tracking-tight text-foreground font-sans">
             Pulse<span className="text-primary font-bold">Loop</span>
           </span>

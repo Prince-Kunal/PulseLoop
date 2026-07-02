@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Heart, MapPin, Loader2, CheckCircle2, User, Building2, Landmark } from "lucide-react";
+import { MapPin, Loader2, CheckCircle2, User, Building2, Landmark } from "lucide-react";
+import Logo from "@/components/Logo";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -122,7 +123,7 @@ export default function SignupPage() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md z-10">
         <Link href="/" className="flex items-center justify-center space-x-2">
-          <Heart className="h-9 w-9 text-primary fill-primary animate-pulse" />
+          <Logo size="md" className="h-9 w-9" />
           <span className="text-2xl font-bold tracking-tight text-foreground font-sans">
             Pulse<span className="text-primary font-bold">Loop</span>
           </span>
