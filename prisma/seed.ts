@@ -402,6 +402,110 @@ async function main() {
     include: { donorProfile: true },
   });
 
+  console.log("Seeding 50 additional serial donors...");
+  const bloodGroupsList = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+  const citiesList = ["New York", "Brooklyn", "Queens", "Bronx", "Staten Island"];
+
+  for (let i = 1; i <= 50; i++) {
+    const email = `donor${i}@gmail.com`;
+    const fullName = `Donor Number ${i}`;
+    const bloodGroup = bloodGroupsList[i % bloodGroupsList.length];
+    
+    // Determine type: 
+    // - i % 3 === 0: Often donor (5-8 donations)
+    // - i % 3 === 1: Occasional donor (1-3 donations)
+    // - i % 3 === 2: New donor (0 donations)
+    const type = i % 3;
+    let totalDonations = 0;
+    let lastDonationDate: Date | null = null;
+    let nextEligibleDate: Date | null = null;
+    let currentStreak = 0;
+    let longestStreak = 0;
+    let livesImpacted = 0;
+
+    if (type === 0) { // Often
+      totalDonations = 5 + (i % 4); // 5 to 8
+      livesImpacted = totalDonations * 3;
+      currentStreak = 2 + (i % 3);
+      longestStreak = currentStreak + 1;
+      
+      if (i % 2 === 0) {
+        lastDonationDate = new Date("2026-06-15");
+        nextEligibleDate = new Date("2026-08-10");
+      } else {
+        lastDonationDate = new Date("2026-04-10");
+        nextEligibleDate = new Date("2026-06-05");
+      }
+    } else if (type === 1) { // Occasional
+      totalDonations = 1 + (i % 3); // 1 to 3
+      livesImpacted = totalDonations * 3;
+      currentStreak = 1;
+      longestStreak = 1;
+      
+      if (i % 2 === 0) {
+        lastDonationDate = new Date("2026-06-28");
+        nextEligibleDate = new Date("2026-08-23");
+      } else {
+        lastDonationDate = new Date("2026-02-15");
+        nextEligibleDate = new Date("2026-04-12");
+      }
+    }
+
+    // Coordinates: minor offset from center of New York
+    const latOffset = Math.sin(i) * 0.08;
+    const lonOffset = Math.cos(i) * 0.08;
+    const latitude = 40.7128 + latOffset;
+    const longitude = -74.0060 + lonOffset;
+    const city = citiesList[i % citiesList.length];
+
+    const donorUser = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+        role: Role.DONOR,
+        donorProfile: {
+          create: {
+            fullName,
+            dateOfBirth: new Date(`1990-0${(i % 9) + 1}-15`),
+            phone: `+1 (555) 999-00${i.toString().padStart(2, "0")}`,
+            latitude,
+            longitude,
+            city,
+            state: "NY",
+            bloodGroup,
+            bloodGroupVerified: i % 4 !== 0,
+            lastDonationDate,
+            totalDonations,
+            livesImpacted,
+            currentStreak,
+            longestStreak,
+            nextEligibleDate,
+            lastActiveAt: new Date(),
+          },
+        },
+      },
+      include: { donorProfile: true },
+    });
+
+    if (donorUser.donorProfile && totalDonations > 0 && lastDonationDate) {
+      for (let d = 0; d < totalDonations; d++) {
+        const donationDate = new Date(lastDonationDate);
+        donationDate.setDate(donationDate.getDate() - (d * 60));
+
+        await prisma.donationHistory.create({
+          data: {
+            donorId: donorUser.donorProfile.id,
+            bloodBankId: bank1User.bloodBankProfile?.id || null,
+            donationDate,
+            bloodType: bloodGroup,
+            units: 1,
+            status: "COMPLETED",
+          },
+        });
+      }
+    }
+  }
+
   console.log("Seeding Donation Histories...");
   // Create history for Prince Kunal
   if (donor1User.donorProfile && bank1User.bloodBankProfile && bank2User.bloodBankProfile) {
@@ -660,6 +764,60 @@ async function main() {
         notificationId: testNotif.id,
         donorId: donor4User.donorProfile.id,
         response: "AVAILABLE",
+      },
+    });
+  }
+
+  console.log("Updating profile locations...");
+  await prisma.donorProfile.updateMany({
+    data: { city: "New York", state: "NY" },
+  });
+  await prisma.hospitalProfile.updateMany({
+    data: { city: "New York", state: "NY" },
+  });
+  await prisma.bloodBankProfile.updateMany({
+    data: { city: "New York", state: "NY" },
+  });
+
+  console.log("Seeding Community Posts...");
+  await prisma.communityPost.create({
+    data: {
+      title: "Annual Summer Blood Drive Scheduling",
+      description: "Join us this Friday at Central Park. Each donor receives a free health screening voucher and 200 PulseLoop reward points!",
+      imageUrl: "https://images.unsplash.com/photo-1615461066841-6116e61058f4?q=80&w=600&auto=format&fit=crop",
+      authorName: "Red Cross Metro Center",
+      authorRole: "BLOOD_BANK",
+    },
+  });
+  await prisma.communityPost.create({
+    data: {
+      title: "Severe O- Inventory Alert",
+      description: "Local hospitals are reporting an acute shortage of O negative blood. If you are eligible, please schedule an appointment today.",
+      imageUrl: null,
+      authorName: "Metro General Hospital",
+      authorRole: "BLOOD_BANK",
+    },
+  });
+
+  console.log("Seeding User Notifications...");
+  const allUsers = await prisma.user.findMany();
+  for (const u of allUsers) {
+    await prisma.userNotification.create({
+      data: {
+        userId: u.id,
+        type: "DRIVE_ANNOUNCEMENT",
+        title: "Upcoming Community Drive",
+        message: "A local blood drive has been scheduled in your area for this Friday. Tap to see locations.",
+        isRead: false,
+      },
+    });
+    await prisma.userNotification.create({
+      data: {
+        userId: u.id,
+        type: "REWARD_UNLOCK",
+        title: "Voucher Unlocked!",
+        message: "Congratulations! You have completed a milestone. Check your rewards catalog to claim your gift voucher.",
+        isRead: true,
       },
     });
   }

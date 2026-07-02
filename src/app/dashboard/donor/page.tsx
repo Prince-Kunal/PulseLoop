@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import DashboardShell from "@/components/DashboardShell";
 import DonorEmergencyAlerts from "@/components/DonorEmergencyAlerts";
+import Link from "next/link";
 import {
   Calendar,
   Heart,
@@ -13,7 +14,13 @@ import {
   Clock,
   TrendingUp,
   UserCheck,
-  Activity
+  Activity,
+  ArrowUpRight,
+  Bell,
+  BookOpen,
+  Users,
+  Settings,
+  Gift
 } from "lucide-react";
 
 // Haversine distance helper
@@ -151,6 +158,13 @@ export default async function DonorDashboard() {
     );
     return { ...drive, distance };
   }).filter(d => d.distance <= 20); // filter to 20km
+
+  // Query recent user notifications
+  const recentUserNotifications = await prisma.userNotification.findMany({
+    where: { userId: session.user.id },
+    orderBy: { createdAt: "desc" },
+    take: 3,
+  });
 
   return (
     <DashboardShell
@@ -341,8 +355,84 @@ export default async function DonorDashboard() {
             </div>
           </div>
 
-          {/* Community Section */}
+          {/* Community & Shortcut Cards Section */}
           <div className="space-y-6">
+            {/* Useful Shortcuts Card */}
+            <div className="bg-card border border-border rounded-2xl p-5 shadow-xs">
+              <h3 className="text-base font-bold text-foreground flex items-center mb-4">
+                <TrendingUp className="h-4.5 w-4.5 mr-2 text-primary" />
+                Useful Shortcuts
+              </h3>
+              <div className="grid grid-cols-1 gap-2.5">
+                <Link
+                  href="/dashboard/donor/analytics"
+                  className="p-3 bg-muted/20 hover:bg-muted/40 border border-border rounded-xl flex items-center justify-between text-xs font-semibold text-foreground transition-all cursor-pointer group"
+                >
+                  <div className="flex items-center space-x-2">
+                    <BookOpen className="h-4 w-4 text-primary" />
+                    <span>View Donation Analytics</span>
+                  </div>
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </Link>
+
+                <Link
+                  href="/dashboard/donor/rewards"
+                  className="p-3 bg-muted/20 hover:bg-muted/40 border border-border rounded-xl flex items-center justify-between text-xs font-semibold text-foreground transition-all cursor-pointer group"
+                >
+                  <div className="flex items-center space-x-2">
+                    <Gift className="h-4 w-4 text-secondary" />
+                    <span>Claim Rewards & Milestones</span>
+                  </div>
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </Link>
+
+                <Link
+                  href="/dashboard/community"
+                  className="p-3 bg-muted/20 hover:bg-muted/40 border border-border rounded-xl flex items-center justify-between text-xs font-semibold text-foreground transition-all cursor-pointer group"
+                >
+                  <div className="flex items-center space-x-2">
+                    <Users className="h-4 w-4 text-primary" />
+                    <span>Community Feed</span>
+                  </div>
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Recent Notifications Card */}
+            <div className="bg-card border border-border rounded-2xl p-5 shadow-xs">
+              <h3 className="text-base font-bold text-foreground flex items-center mb-4">
+                <Bell className="h-4.5 w-4.5 mr-2 text-primary" />
+                Recent Alerts
+              </h3>
+              {recentUserNotifications.length === 0 ? (
+                <div className="p-4 text-center text-muted-foreground text-[11px] italic">
+                  No active system alerts at this moment.
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {recentUserNotifications.map((notif) => (
+                    <div
+                      key={notif.id}
+                      className="p-3 border border-border bg-muted/15 rounded-xl text-[11px] space-y-1 hover:border-primary/10 transition-colors"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-foreground truncate max-w-[150px]">{notif.title}</span>
+                        <span className="text-[9px] text-muted-foreground">{new Date(notif.createdAt).toLocaleDateString()}</span>
+                      </div>
+                      <p className="text-muted-foreground leading-relaxed">{notif.message}</p>
+                    </div>
+                  ))}
+                  <Link
+                    href="/dashboard/notifications"
+                    className="block text-center text-[10px] font-bold text-primary hover:underline pt-1.5"
+                  >
+                    View All Notifications
+                  </Link>
+                </div>
+              )}
+            </div>
+
             {/* Leaderboard Card */}
             <div className="bg-card border border-border rounded-2xl p-6 shadow-xs">
               <h3 className="text-base font-bold text-foreground flex items-center mb-4">
@@ -376,36 +466,6 @@ export default async function DonorDashboard() {
                     </div>
                   </div>
                 ))}
-              </div>
-            </div>
-
-            {/* Posts / Activity Card */}
-            <div className="bg-card border border-border rounded-2xl p-6 shadow-xs">
-              <h3 className="text-base font-bold text-foreground flex items-center mb-4">
-                <Award className="h-4.5 w-4.5 mr-2 text-primary" />
-                Community Activity
-              </h3>
-
-              <div className="space-y-4">
-                <div className="p-3 bg-muted/20 border border-border/80 rounded-xl space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-foreground">St. Mary Blood Center</span>
-                    <span className="text-[9px] text-muted-foreground/80">2h ago</span>
-                  </div>
-                  <p className="text-muted-foreground text-xs leading-relaxed">
-                    🎉 Big thanks to everyone who came out to today's drive. We collected 42 units of blood!
-                  </p>
-                </div>
-
-                <div className="p-3 bg-muted/20 border border-border/80 rounded-xl space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-foreground">Sarah Jenkins</span>
-                    <span className="text-[9px] text-muted-foreground/80">1d ago</span>
-                  </div>
-                  <p className="text-muted-foreground text-xs leading-relaxed">
-                    Just completed my 12th donation! Feels great to give back and help save lives ❤️
-                  </p>
-                </div>
               </div>
             </div>
           </div>

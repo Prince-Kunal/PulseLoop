@@ -16,7 +16,13 @@ import {
   Shield,
   Activity,
   Database,
-  Calendar
+  Calendar,
+  BarChart3,
+  Rss,
+  Trophy,
+  Gift,
+  Bell,
+  Settings
 } from "lucide-react";
 
 interface DashboardShellProps {
@@ -41,19 +47,35 @@ export default function DashboardShell({
       case "DONOR":
         return [
           { name: "Dashboard", href: "/dashboard/donor", icon: LayoutDashboard },
+          { name: "Analytics", href: "/dashboard/donor/analytics", icon: BarChart3 },
+          { name: "Rewards Center", href: "/dashboard/donor/rewards", icon: Gift },
+          { name: "Community Feed", href: "/dashboard/community", icon: Rss },
+          { name: "Leaderboards", href: "/dashboard/leaderboards", icon: Trophy },
+          { name: "Notifications", href: "/dashboard/notifications", icon: Bell },
+          { name: "Profile Settings", href: "/dashboard/profile", icon: Settings },
         ];
       case "HOSPITAL":
         return [
           { name: "Dashboard", href: "/dashboard/hospital", icon: LayoutDashboard },
+          { name: "Analytics", href: "/dashboard/hospital/analytics", icon: BarChart3 },
           { name: "Blood Requests", href: "/dashboard/hospital/requests", icon: Activity },
+          { name: "Community Feed", href: "/dashboard/community", icon: Rss },
+          { name: "Leaderboards", href: "/dashboard/leaderboards", icon: Trophy },
+          { name: "Notifications", href: "/dashboard/notifications", icon: Bell },
+          { name: "Profile Settings", href: "/dashboard/profile", icon: Settings },
         ];
       case "BLOOD_BANK":
         return [
           { name: "Dashboard", href: "/dashboard/blood-bank", icon: LayoutDashboard },
+          { name: "Analytics", href: "/dashboard/blood-bank/analytics", icon: BarChart3 },
           { name: "Blood Inventory", href: "/dashboard/blood-bank/inventory", icon: Database },
           { name: "Record Donation", href: "/dashboard/blood-bank/record", icon: Activity },
           { name: "Blood Drives", href: "/dashboard/blood-bank/drives", icon: Calendar },
           { name: "Hospital Requests", href: "/dashboard/blood-bank/requests", icon: Building2 },
+          { name: "Community Feed", href: "/dashboard/community", icon: Rss },
+          { name: "Leaderboards", href: "/dashboard/leaderboards", icon: Trophy },
+          { name: "Notifications", href: "/dashboard/notifications", icon: Bell },
+          { name: "Profile Settings", href: "/dashboard/profile", icon: Settings },
         ];
       default:
         return [];
